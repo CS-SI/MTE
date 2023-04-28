@@ -86,7 +86,7 @@ export const Form = ({ canvas }) => {
     <form action="">
       <StyledContainer>
         <Div>
-          <H3>Observation types</H3>
+          <H3>Type d'observation</H3>
           <DivFlexRow>
             <Checkbox
               storeAction={toggleOptic}
@@ -112,7 +112,7 @@ export const Form = ({ canvas }) => {
           </DivFlexRow>
         </Div>
         <Div>
-          <H3>Observation depth</H3>
+          <H3>Période d'observation</H3>
           <DivFlexRow>
             <Radiobox
               storeAction={toggleDay}
@@ -152,7 +152,7 @@ export const Form = ({ canvas }) => {
           </DivFlexRow>
         </Div>
         <Div>
-          <H3>Attributes</H3>
+          <H3>Attribut</H3>
           <Select
             setAttributeValue={setAttributeValue}
             value={form.dataType}
@@ -175,7 +175,7 @@ export const Form = ({ canvas }) => {
           </Select>
         </Div>
         <Div>
-          <H3>Chart types</H3>
+          <H3>Type de graphique</H3>
           <Select setAttributeValue={setChartType} value={form.chartType}>
             <SelectOption
               value={ChartTypes.LINE}
@@ -192,13 +192,13 @@ export const Form = ({ canvas }) => {
             <CarbonZoomReset fontSize={20} />
           </ButtonIcon>
           <Tooltip id="reset-zoom" place="top" effect="solid">
-            <span>Reset zoom chart</span>
+            <span>Réinitialiser le zoom</span>
           </Tooltip>
           <ButtonIcon data-tip data-for="download" onClick={downloadChartImage}>
             <CarbonDocumentDownload fontSize={20} />
           </ButtonIcon>
           <Tooltip id="download" place="top" effect="solid">
-            <span>Download chart image</span>
+            <span>Télécharger l'image du graphique</span>
           </Tooltip>
         </ButtonIconContainer>
       </StyledContainer>

@@ -83,6 +83,7 @@ export default function useLakeBoardHook() {
 				allLakesSortedLikeActive.push(lake)
 			}
 		}
+		console.warn("ALLLAKEEEEEEEE", allLakesActiveIdName)
 		setActiveLakesInfo(allLakesSortedLikeActive)
 
 		// setActiveLakesInfo(allLakesActiveIdName)

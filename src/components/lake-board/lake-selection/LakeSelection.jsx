@@ -143,13 +143,8 @@ const decreaseWidth = {
   width: '10%',
 }
 
-export const LakeSelection = ({
-  id,
-  name,
-  coordinates,
-  index,
-  showLakeInfo,
-}) => {
+export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
+  console.log("RECALING")
   const {
     toggleChartVisibilty,
     handleClickDesactiveLake,
@@ -173,6 +168,9 @@ export const LakeSelection = ({
     obsDepth,
     mode,
   } = useLakeSelectionHook({ id, name, coordinates, index, showLakeInfo })
+ 
+  console.log(active)
+  console.log(data)
 
   if (active.includes(id) && !data[id]?.[dataType]?.[obsDepth]) {
     return (

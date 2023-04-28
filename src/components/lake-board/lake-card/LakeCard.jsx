@@ -118,7 +118,7 @@ export const LakeCard = ({ id }) => {
       <SArticle>
         <SDivId>
           <p>
-            <span> Id SWOT :</span> {lake.id}
+            <span> Id :</span> {lake.id}
           </p>
           <p>
             <span>Main use :</span>{' '}

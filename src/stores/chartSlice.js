@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ModeTypes, DataTypes, ObservationTypes } from "../config"
+import MODE_TYPES from "../config/ModeTypes"
 
 const initialState = {
 	zoomReset: false,
@@ -105,6 +106,7 @@ const initialState = {
 					pointBackgroundColor: "rgb(255, 0, 255,0.33)",
 				},
 			},
+			
 		},
 	},
 	[DataTypes.FILLING_RATE]: {
@@ -597,17 +599,43 @@ export const chartSlice = createSlice({
 			const { zoom } = action.payload
 			state.zoomReset = zoom
 		},
-		addColor: (state, action) => {
-			const { dataType, obsType, color } = action.payload
-			state[dataType].style[obsType].push({
-				borderColor: color,
-				backgroundColor: color,
-				pointBackgroundColor: color,
-			})
+		addColorWB: (state, action) => {
+			const { dataType, obsType, color, } = action.payload
+				state[dataType].style[obsType].push({
+					borderColor: color,
+					backgroundColor: color,
+					pointBackgroundColor: color,
+				})
 		},
-	},
+		addColorForYear: (state, action) => {
+				const { opticColor,radarColor,referenceColor } = action.payload
+				const yearLength = Object.entries(state[ModeTypes.YEAR].style).length
+				const index = `x${yearLength}`
+				
+					 state[ModeTypes.YEAR].style = {
+					...state[ModeTypes.YEAR].style,
+						 [index]:{
+							[ObservationTypes.OPTIC]: {
+								backgroundColor: opticColor,
+								borderColor: opticColor,
+								pointBackgroundColor: opticColor,
+							},
+							[ObservationTypes.RADAR]: {
+								backgroundColor: radarColor,
+								borderColor: radarColor,
+								pointBackgroundColor: radarColor,
+							},
+							[ObservationTypes.REFERENCE]: {
+								backgroundColor: referenceColor,
+								borderColor: referenceColor,
+								pointBackgroundColor: referenceColor,
+							},
+						} 
+					} 
+		},
+		},
 })
 
-export const { addColor, handleResetZoom } = chartSlice.actions
-
+export const { addColorWB, addColorForYear, handleResetZoom } = chartSlice.actions
+export const getYearStyle = (state) => state.chart.YEAR.style;
 export default chartSlice.reducer

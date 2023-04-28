@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import JSZip from 'jszip'
 import { AppConfig, DurationTypes } from '../../../config'
 import { getSeriePath } from '@/utils/seriePath'
+
+
 export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
   const [bgOptic, setBgOptic] = useState({})
   const [bgRadar, setBgRadar] = useState({})
@@ -75,6 +77,7 @@ export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
 
   useEffect(() => {
     if (!YEAR) return
+    console.log(index)
     setBgOptic({
       backgroundColor:
         chartOptions.YEAR.style[`x${index}`].OPTIC.backgroundColor,

@@ -16,7 +16,7 @@ export const Map = () => {
 	const { coordinates } = useMapHook({ dataGeojson })
 
 	return (
-		<StyledMapContainer center={coordinates} zoom={2.5} scrollWheelZoom={true}>
+		<StyledMapContainer center={coordinates} zoom={5.0} scrollWheelZoom={true}>
 			<LayersControl position="topright">
 				<LayersControl.BaseLayer checked name="OSM Streets">
 					<TileLayer

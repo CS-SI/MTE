@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { addData } from './stores/dataSlice'
 import { removeLake } from './stores/stateLakeSlice'
-import { addColor } from './stores/chartSlice'
+import { addColorWB,addColorForYear } from './stores/chartSlice'
 import { ObservationTypes, DurationTypes, DataTypes } from './config'
 import { fillEmptyDataOfDate, getDataByYear } from './utils/date'
 import {
@@ -15,8 +15,12 @@ import {
 import { addLakeChartOptions } from './stores/lakesChartOptionsSlice'
 import { addYearsChartOptions } from './stores/yearsChartOptionsSlice'
 import DATA_TYPES from './config/DataTypes'
+import { getYearStyle } from './stores/chartSlice'
 
 export function useAppHook() {
+  
+  const yearStyle = useSelector(getYearStyle)
+  const styleLength = Object.entries(yearStyle).length
   const [isOneLakeActive, setIsOneLakeActive] = useState(false)
   const [theme, setTheme] = useState('dark')
   const [obsDepth, setObsDepth] = useState(DurationTypes.PERIOD)
@@ -32,8 +36,12 @@ export function useAppHook() {
   const { DAY, PERIOD, YEAR, dataType } = form
   const dispatch = useDispatch()
 
+  console.log("-----DATA", data)
+
   const handleData = useCallback(
     async lakeId => {
+      //console.log(data[lakeId]?.[dataType]?.[obsDepth])
+
       if (data[lakeId]?.[dataType]?.[obsDepth]) return
       const allSeriesPath = serPath[lakeId]
 
@@ -89,6 +97,7 @@ export function useAppHook() {
         getDataFormalized(newAllData[1], dataType),
         tmpZSV[0],
       ]
+      console.warn("*******NEWDATA", newData)
       if (dataType === DataTypes.VOLUME) {
         volumeDataFullDates = fillEmptyDataOfDate([newData])
       }
@@ -109,6 +118,7 @@ export function useAppHook() {
           [volumeFullDates]: volumeDataFullDates[0],
         }
       }
+      
       dispatch(
         addData({
           id: lakeId,
@@ -120,14 +130,27 @@ export function useAppHook() {
           volumeFullDates,
         })
       )
+     
 
       dispatch(addLakeChartOptions({ id: lakeId }))
 
       setLastDataType(dataType)
       setLastObsDepth(obsDepth)
+      console.log(dataWB[obsName])
+      console.log(dataWB)
+      console.log(obsName)
+      console.log(dataType,"-",
+        dataWB,"-",
+        obsDepth,"-",
+        obsName,"-",
+        obsNameByYear,"-",
+        volumeFullDates)
+        
     },
+    
     [dispatch, active, dataType, obsDepth]
   )
+  
 
   useEffect(() => {
     if (active.length === 0) return
@@ -206,7 +229,7 @@ export function useAppHook() {
       Math.random() * 255
     )}, ${Math.floor(Math.random() * 255)}, 1)`
     dispatch(
-      addColor({
+      addColorWB({
         dataType,
         obsType: ObservationTypes.OPTIC,
         color: randomColor,
@@ -214,7 +237,7 @@ export function useAppHook() {
     )
     let newColor = randomColor.replace(/,[^,]+$/, ',0.66)')
     dispatch(
-      addColor({
+      addColorWB({
         dataType,
         obsType: ObservationTypes.RADAR,
         color: newColor,
@@ -222,7 +245,7 @@ export function useAppHook() {
     )
     newColor = randomColor.replace(/,[^,]+$/, ',0.33)')
     dispatch(
-      addColor({
+      addColorWB({
         dataType,
         obsType: ObservationTypes.REFERENCE,
         color: newColor,
@@ -230,11 +253,46 @@ export function useAppHook() {
     )
   }, [dataType])
 
+  const addChartColorForYear = () => {
+     const opticColor = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
+      Math.random() * 255
+    )}, ${Math.floor(Math.random() * 255)}, 1)`
+  
+    let radarColor = opticColor.replace(/,[^,]+$/, ',0.66)')
+    let referenceColor = opticColor.replace(/,[^,]+$/, ',0.33)')
+
+    dispatch(
+      addColorForYear({
+        opticColor,
+        radarColor,
+        referenceColor
+      })
+    ) 
+    
+  }
+
   useEffect(() => {
     if (active.length > 10) {
       addChartColor()
     }
-  }, [active, addChartColor])
+  }, [active])
+
+
+
+
+  useEffect(() => {
+
+    if (data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year) {
+      //console.log(Object.entries(data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year).length, styleLength)
+  
+      if(Object.entries(data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year).length > styleLength )  {
+     
+        addChartColorForYear() 
+        
+      }
+    }  
+  }, [data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year])
+  
 
   return {
     isOneLakeActive,

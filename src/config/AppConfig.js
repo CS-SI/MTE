@@ -23,7 +23,7 @@ const config = {
       tension: 0,
       pointRadius: 1.4,
       // pointRadius: 0,
-      label: 'Filling rate',
+      label: 'Taux de remplissage',
       filePath: 'filling_rate_raw',
       unit: '%',
       actionReducers: 'setAttributes',
@@ -72,7 +72,7 @@ const config = {
   observationTypes: {
     [OBSERVATION_TYPES.OPTIC]: {
       abbr: 'MO',
-      label: 'Optic',
+      label: 'Optique',
     },
     [OBSERVATION_TYPES.RADAR]: {
       abbr: 'MR',
@@ -80,25 +80,25 @@ const config = {
     },
     [OBSERVATION_TYPES.REFERENCE]: {
       abbr: 'ZSV_timeseries',
-      label: 'Reference',
+      label: 'Référence',
     },
   },
   duration: {
     [DURATION_TYPES.DAY]: {
       abbr: '1',
-      label: '1 day',
+      label: '1 jour',
     },
     [DURATION_TYPES.PERIOD]: {
       abbr: '2',
-      label: '10 days',
+      label: '10 jours',
     },
   },
   chartTypes: {
     [CHART_TYPES.LINE]: {
-      label: 'Line',
+      label: 'Ligne',
     },
     [CHART_TYPES.SCATTER]: {
-      label: 'Scatter',
+      label: 'Points',
     },
   },
   modeTypes: {
@@ -106,7 +106,7 @@ const config = {
       label: 'Volume',
     },
     [MODE_TYPES.YEAR]: {
-      label: 'Year',
+      label: 'Année',
     },
   },
 }

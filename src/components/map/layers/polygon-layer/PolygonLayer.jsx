@@ -27,8 +27,8 @@ export const PolygonLayer = ({ data }) => {
   useEffect(() => {
     setLayer(
       data.features.map(feature => {
-        const { ID_SWOT, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
-        const { coordinates } = feature.geometry
+        const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
+				const { coordinates } = feature.geometry
 
         let coord
         if (coordinates[0][0].length === 2) {
@@ -50,22 +50,22 @@ export const PolygonLayer = ({ data }) => {
           <Polygon
             key={uuid()}
             positions={polygonPositions}
-            color={active.includes(ID_SWOT) ? '#CDF0EA' : 'blue'}
+            color={active.includes(ID_DB) ? '#CDF0EA' : 'blue'}
             // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
             eventHandlers={{
               click: () => {
-                if (!dataFromStore[ID_SWOT]?.[dataType][obsDepth]) {
-                  activeLake(ID_SWOT, [LAT_WW, LONG_WW])
+                if (!dataFromStore[ID_DB]?.[dataType][obsDepth]) {
+                  activeLake(ID_DB, [LAT_WW, LONG_WW])
                 }
                 if (
                   // !active.includes(ID_SWOT)
                   //   &&
-                  dataFromStore[ID_SWOT]?.[dataType][obsDepth]
+                  dataFromStore[ID_DB]?.[dataType][obsDepth]
                 ) {
-                  updateLake(ID_SWOT, [LAT_WW, LONG_WW], obsDepth)
+                  updateLake(ID_DB, [LAT_WW, LONG_WW], obsDepth)
                 }
-                if (active.includes(ID_SWOT)) {
-                  dispatch(toggleLakeChartSelection({ id: ID_SWOT }))
+                if (active.includes(ID_DB)) {
+                  dispatch(toggleLakeChartSelection({ id: ID_DB }))
                 }
               },
             }}

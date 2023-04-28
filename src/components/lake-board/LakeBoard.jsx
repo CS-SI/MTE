@@ -18,7 +18,7 @@ const Container = styled('div', {
 const H3 = styled('h3', {
   fontFamily: 'sans-serif',
   marginBottom: theme.space.sm,
-  fontSize: theme.fontSizes.base,
+  fontSize: theme.fontSizes.base
 })
 
 const HeadContainer = styled('div', {
@@ -51,17 +51,17 @@ const Tooltip = styled(ReactTooltip, {
 export const LakeBoard = () => {
   const { VOLUME, clearSelection, activeLakesInfo, showInfo } =
     useLakeBoardHook()
-
+  console.warn("ACTIVE LAKE INFO",activeLakesInfo)
   return (
     <Container>
       {showInfo && <LakeCard />}
       <HeadContainer>
-        <H3>Selected reservoirs</H3>
+        <H3>Réservoirs sélectionnés</H3>
         <Button data-tip data-for="removeSelection" onClick={clearSelection}>
           <CarbonCloseOutline fontSize={18} />
         </Button>
         <Tooltip id="removeSelection" place="top" effect="solid">
-          <span>Remove selection</span>
+          <span>Retirer la sélection</span>
         </Tooltip>
       </HeadContainer>
 
