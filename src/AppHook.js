@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { addData } from './stores/dataSlice'
 import { removeLake } from './stores/stateLakeSlice'
-import { addColorWB,addColorForYear } from './stores/chartSlice'
+import { addColorWB, addColorForYear } from './stores/chartSlice'
 import { ObservationTypes, DurationTypes, DataTypes } from './config'
 import { fillEmptyDataOfDate, getDataByYear } from './utils/date'
 import {
@@ -18,7 +18,6 @@ import DATA_TYPES from './config/DataTypes'
 import { getYearStyle } from './stores/chartSlice'
 
 export function useAppHook() {
-  
   const yearStyle = useSelector(getYearStyle)
   const styleLength = Object.entries(yearStyle).length
   const [isOneLakeActive, setIsOneLakeActive] = useState(false)
@@ -36,7 +35,7 @@ export function useAppHook() {
   const { DAY, PERIOD, YEAR, dataType } = form
   const dispatch = useDispatch()
 
-  console.log("-----DATA", data)
+  console.log('-----DATA', data)
 
   const handleData = useCallback(
     async lakeId => {
@@ -97,7 +96,7 @@ export function useAppHook() {
         getDataFormalized(newAllData[1], dataType),
         tmpZSV[0],
       ]
-      console.warn("*******NEWDATA", newData)
+      console.warn('*******NEWDATA', newData)
       if (dataType === DataTypes.VOLUME) {
         volumeDataFullDates = fillEmptyDataOfDate([newData])
       }
@@ -118,7 +117,7 @@ export function useAppHook() {
           [volumeFullDates]: volumeDataFullDates[0],
         }
       }
-      
+
       dispatch(
         addData({
           id: lakeId,
@@ -130,7 +129,6 @@ export function useAppHook() {
           volumeFullDates,
         })
       )
-     
 
       dispatch(addLakeChartOptions({ id: lakeId }))
 
@@ -139,18 +137,23 @@ export function useAppHook() {
       console.log(dataWB[obsName])
       console.log(dataWB)
       console.log(obsName)
-      console.log(dataType,"-",
-        dataWB,"-",
-        obsDepth,"-",
-        obsName,"-",
-        obsNameByYear,"-",
-        volumeFullDates)
-        
+      console.log(
+        dataType,
+        '-',
+        dataWB,
+        '-',
+        obsDepth,
+        '-',
+        obsName,
+        '-',
+        obsNameByYear,
+        '-',
+        volumeFullDates
+      )
     },
-    
+
     [dispatch, active, dataType, obsDepth]
   )
-  
 
   useEffect(() => {
     if (active.length === 0) return
@@ -254,10 +257,10 @@ export function useAppHook() {
   }, [dataType])
 
   const addChartColorForYear = () => {
-     const opticColor = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
+    const opticColor = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
       Math.random() * 255
     )}, ${Math.floor(Math.random() * 255)}, 1)`
-  
+
     let radarColor = opticColor.replace(/,[^,]+$/, ',0.66)')
     let referenceColor = opticColor.replace(/,[^,]+$/, ',0.33)')
 
@@ -265,10 +268,9 @@ export function useAppHook() {
       addColorForYear({
         opticColor,
         radarColor,
-        referenceColor
+        referenceColor,
       })
-    ) 
-    
+    )
   }
 
   useEffect(() => {
@@ -277,22 +279,19 @@ export function useAppHook() {
     }
   }, [active])
 
-
-
-
   useEffect(() => {
-
     if (data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year) {
-      //console.log(Object.entries(data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year).length, styleLength)
-  
-      if(Object.entries(data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year).length > styleLength )  {
-     
-        addChartColorForYear() 
-        
+      const numberOfYearsInData = Object.entries(
+        data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year
+      ).length
+      if (numberOfYearsInData > styleLength) {
+        const numberOfYearsToAdd = numberOfYearsInData - styleLength
+        for (let i = 0; i < numberOfYearsToAdd; i++) {
+          addChartColorForYear()
+        }
       }
-    }  
+    }
   }, [data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year])
-  
 
   return {
     isOneLakeActive,
