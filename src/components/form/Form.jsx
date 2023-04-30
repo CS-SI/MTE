@@ -70,6 +70,7 @@ const Tooltip = styled(ReactTooltip, {
   padding: '4px 8px !important',
   zIndex: '1111 !important',
 })
+
 export const Form = ({ canvas }) => {
   const {
     chartTypesValues,
@@ -80,7 +81,7 @@ export const Form = ({ canvas }) => {
     modeTypesValues,
     downloadChartImage,
     resetZoomChart,
-    handleYearMode,
+    active,
   } = useFormHook({ canvas })
   return (
     <form action="">
@@ -187,20 +188,26 @@ export const Form = ({ canvas }) => {
             />
           </Select>
         </Div>
-        <ButtonIconContainer>
-          <ButtonIcon data-tip data-for="reset-zoom" onClick={resetZoomChart}>
-            <CarbonZoomReset fontSize={20} />
-          </ButtonIcon>
-          <Tooltip id="reset-zoom" place="top" effect="solid">
-            <span>Réinitialiser le zoom</span>
-          </Tooltip>
-          <ButtonIcon data-tip data-for="download" onClick={downloadChartImage}>
-            <CarbonDocumentDownload fontSize={20} />
-          </ButtonIcon>
-          <Tooltip id="download" place="top" effect="solid">
-            <span>Télécharger l'image du graphique</span>
-          </Tooltip>
-        </ButtonIconContainer>
+        {active.length > 0 && (
+          <ButtonIconContainer>
+            <ButtonIcon data-tip data-for="reset-zoom" onClick={resetZoomChart}>
+              <CarbonZoomReset fontSize={20} />
+            </ButtonIcon>
+            <Tooltip id="reset-zoom" place="top" effect="solid">
+              <span>Réinitialiser le zoom</span>
+            </Tooltip>
+            <ButtonIcon
+              data-tip
+              data-for="download"
+              onClick={downloadChartImage}
+            >
+              <CarbonDocumentDownload fontSize={20} />
+            </ButtonIcon>
+            <Tooltip id="download" place="top" effect="solid">
+              <span>Télécharger l'image du graphique</span>
+            </Tooltip>
+          </ButtonIconContainer>
+        )}
       </StyledContainer>
     </form>
   )
