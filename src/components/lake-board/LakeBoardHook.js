@@ -17,6 +17,8 @@ export default function useLakeBoardHook() {
 		state => state.form
 	)
 	const { active } = useSelector(state => state.stateLake)
+	const { lakeId } = useSelector(state => state.stateLake)
+	lakeId
 	const { data } = useSelector(state => state.data)
 	const { yearsChartOptions, lakesChartOptions } = useSelector(state => state)
 	const { information } = useSelector(state => state.information)
@@ -32,10 +34,11 @@ export default function useLakeBoardHook() {
 	}, [DAY, PERIOD])
 
 	useEffect(() => {
-		const isInfoCliked = Object.entries(lakesChartOptions)
+		//console.warn("HANDLING ID", lakeId, lakesChartOptions[lakeId])
+/* 		const isInfoCliked = Object.entries(lakesChartOptions)
 			.filter(([id, { infoVisible }]) => infoVisible)
-			.map(([id]) => id)
-		if (isInfoCliked.length > 0) {
+			.map(([id]) => id) */
+		if (lakesChartOptions[lakeId] && lakesChartOptions[lakeId].infoVisible) {
 			setShowInfo(true)
 		} else {
 			setShowInfo(false)

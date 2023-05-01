@@ -88,6 +88,7 @@ export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
     handleSetNoData,
     noDataFound,
   })
+  console.warn("NODATA FOUND",noDataFound)
   return (
     <>
       {open && (

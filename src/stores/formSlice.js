@@ -9,8 +9,8 @@ import {
 
 const initialState = {
 	[ObservationTypes.OPTIC]: true,
-	[ObservationTypes.RADAR]: true,
-	[ObservationTypes.REFERENCE]: true,
+	[ObservationTypes.RADAR]: false,
+	[ObservationTypes.REFERENCE]: false,
 	[DurationTypes.DAY]: false,
 	[DurationTypes.PERIOD]: true,
 	dataType: DataTypes.FILLING_RATE,
