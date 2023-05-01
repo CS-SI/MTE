@@ -540,7 +540,10 @@ export default function useChartHook() {
               return `${lakeName}`
             },
             beforeBody(context) {
-              const { label } = context[0].dataset
+              let { label } = context[0].dataset
+              if (label === "OPTIC") {
+                label = "Optique"
+              }
               return `Observation: ${label}`
             },
             label(context) {
@@ -791,6 +794,8 @@ export default function useChartHook() {
   const dataChart = {
     datasets: dataSets,
   }
+
+  console.warn("OPTIONS",options)
 
   return {
     dataChart,

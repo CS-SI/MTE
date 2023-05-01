@@ -87,7 +87,7 @@ const StyledDivObservationTypes = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-evenly',
-  width: '20%',
+  width: '25%',
   // paddingLeft: theme.space.sm,
 })
 
@@ -196,7 +196,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgOptic} />
                 <SpanBgWhite />
-                <StyledSpanLabel>optic</StyledSpanLabel>
+                <StyledSpanLabel>optique</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
             {RADAR && mode.volume.raw[1]?.length > 0 && (
@@ -210,7 +210,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgReference} />
                 <SpanBgWhite />
-                <StyledSpanLabel>ref</StyledSpanLabel>
+                <StyledSpanLabel>réf</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
           </StyledDivObservationTypes>
@@ -221,7 +221,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgOptic} />
                 <SpanBgWhite />
-                <StyledSpanLabel>optic</StyledSpanLabel>
+                <StyledSpanLabel>optique</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
             {RADAR && data[id]?.[dataType]?.[obsDepth]?.raw[1]?.[0]?.date && (
@@ -236,7 +236,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgReference} />
                   <SpanBgWhite />
-                  <StyledSpanLabel>ref</StyledSpanLabel>
+                  <StyledSpanLabel>réf</StyledSpanLabel>
                 </StyledDivContainerObsTypes>
               )}
           </StyledDivObservationTypes>
@@ -250,7 +250,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgOptic} />
                   <SpanBgWhite />
-                  <StyledSpanLabel>optic</StyledSpanLabel>
+                  <StyledSpanLabel>optique</StyledSpanLabel>
                 </StyledDivContainerObsTypes>
               )}
             {RADAR &&
@@ -270,7 +270,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgReference} />
                   <SpanBgWhite />
-                  <StyledSpanLabel>ref</StyledSpanLabel>
+                  <StyledSpanLabel>réf</StyledSpanLabel>
                 </StyledDivContainerObsTypes>
               )}
           </StyledDivObservationTypes>
@@ -301,7 +301,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                     <CarbonView fontSize={16} />
                   </StyledButton>
                   <StyledReactTooltip id="visible" place="top" effect="solid">
-                    <span>Visible</span>
+                    <span>Afficher le graphique</span>
                   </StyledReactTooltip>
                 </>
               )}
@@ -315,7 +315,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                     <CarbonViewOff fontSize={16} />
                   </StyledButton>
                   <StyledReactTooltip id="hide" place="top" effect="solid">
-                    <span>Hide chart</span>
+                    <span>Cacher le graphique</span>
                   </StyledReactTooltip>
                 </>
               )}
@@ -339,7 +339,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                     <CarbonDownload fontSize={16} />
                   </StyledButton>
                   <StyledReactTooltip id="download" place="top" effect="solid">
-                    <span>Download CSV</span>
+                    <span>Télécharger le CSV</span>
                   </StyledReactTooltip>
                 </>
               )}
@@ -356,7 +356,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                 effect="solid"
                 type="warning"
               >
-                <span>Remove</span>
+                <span>Supprimer</span>
               </StyledReactTooltip>
             </>
           )}

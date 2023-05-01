@@ -29,6 +29,7 @@ export const lakesChartOptionsSlice = createSlice({
     },
     toggleLakeChartInfoVisibility: (state, action) => {
       const { id } = action.payload
+      console.warn("IDDDDDDDD", id)
       Object.entries(state).map(el => {
         if (el[0] !== id && el[1].infoVisible) {
           el[1].infoVisible = false

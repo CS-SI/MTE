@@ -5,6 +5,7 @@ import { toggleLakeChartInfoVisibility } from '@stores/lakesChartOptionsSlice'
 import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
 import { useDispatch } from 'react-redux'
+import { getLakeId } from '../../../stores/stateLakeSlice'
 const SDiv = styled('div', {
   padding: '1.5rem',
   backgroundColor: '$background',
@@ -100,6 +101,7 @@ export const LakeCard = ({ id }) => {
 
   const closeInfo = useCallback(() => {
     dispatch(toggleLakeChartInfoVisibility({ id: lake.id }))
+    dispatch(getLakeId({id: lake.id}))
   }, [dispatch, lake.id])
 
   return (
@@ -109,7 +111,7 @@ export const LakeCard = ({ id }) => {
           <CarbonClose fontSize={14} />
         </SButton>
         <SReactTooltip id="close" place="right" effect="solid">
-          <span>Close</span>
+          <span>Fermer</span>
         </SReactTooltip>
       </SButtonContainer>
       <SH2>
@@ -121,24 +123,24 @@ export const LakeCard = ({ id }) => {
             <span> Id :</span> {lake.id}
           </p>
           <p>
-            <span>Main use :</span>{' '}
+            <span>Utilisation :</span>{' '}
             {lake.mainUse !== 'NULL' ? lake.mainUse : 'n/a'}
           </p>
           <p>
-            <span>Near city :</span>{' '}
+            <span>Lieu :</span>{' '}
             {lake.nearCity !== 'NULL' ? lake.nearCity : 'n/a'}
           </p>
         </SDivId>
         <SDivCoord>
           <p>
-            <SpanCoord>Dam coordinates:</SpanCoord>
+            <SpanCoord>Coordonnées de barrage :</SpanCoord>
           </p>
           <ul>
             <li>lat : {lake.damCoord[0]}</li>
             <li>long : {lake.damCoord[1]}</li>
           </ul>
           <span>
-            <SpanCoord>Reservoirs coordinates:</SpanCoord>
+            <SpanCoord>Coordonnées de réservoir :</SpanCoord>
             <ul>
               <li>lat : {lake.lakeCoord[0]}</li>
               <li>long : {lake.lakeCoord[1]}</li>

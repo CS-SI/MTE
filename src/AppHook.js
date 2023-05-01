@@ -30,6 +30,7 @@ export function useAppHook() {
   const [noData, setNoData] = useState(false)
   const [noDataFound, setNoDataFound] = useState([])
   const form = useSelector(state => state.form)
+  console.warn("FOOOORM", form)
   const { active } = useSelector(state => state.stateLake)
   const { data, loaded } = useSelector(state => state.data)
   const { seriePath: serPath } = useSelector(state => state.information)
@@ -46,6 +47,7 @@ export function useAppHook() {
       const allSeriesPath = serPath[lakeId]
 
       const newAllData = await getDataRaw(allSeriesPath, form).catch({})
+      console.warn("NEWALLDATA", newAllData)
 
       let dataZSV = []
       let newfillingRateZSV = []
@@ -71,18 +73,21 @@ export function useAppHook() {
 
       let tmp = []
       newAllData.forEach((serie, index) => {
+        console.warn("SERIES AND INDEX",serie,"----------", index)
         if (serie.length === 0) {
-          if (index === 0) {
+          console.warn("SERIES LENGTH", serie.length)
+          if (index === 0 && form.OPTIC === true) {
             tmp.push('optic')
           }
-          if (index === 1) {
+          if (index === 1 && form.RADAR === true) {
             tmp.push('radar')
           }
-          if (index === 2) {
+          if (index === 2 && form.REFERENCE === true) {
             tmp.push('reference')
           }
         }
       })
+      console.warn("TMP IS", tmp)
       setNoDataFound(tmp)
 
       if (noData) return

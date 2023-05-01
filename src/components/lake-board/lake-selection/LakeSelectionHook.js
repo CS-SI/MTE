@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import JSZip from 'jszip'
 import { AppConfig, DurationTypes } from '../../../config'
 import { getSeriePath } from '@/utils/seriePath'
+import { getLakeId } from '../../../stores/stateLakeSlice'
 
 
 export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
@@ -32,6 +33,7 @@ export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
   const { form } = useSelector(state => state)
 
   const { lakesChartOptions } = useSelector(state => state)
+  console.warn("STAAAAAAAAAATE", lakesChartOptions)
   const { yearsChartOptions } = useSelector(state => state)
   const { data, mode } = useSelector(state => state.data)
   const { information, seriePath } = useSelector(state => state.information)
@@ -122,6 +124,7 @@ export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
 
   const toggleInfo = useCallback(() => {
     dispatch(toggleLakeChartInfoVisibility({ id }))
+    dispatch(getLakeId({id}))
   }, [dispatch, id])
 
   const handleDownloadFile = useCallback(async () => {
