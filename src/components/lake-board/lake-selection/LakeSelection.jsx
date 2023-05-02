@@ -143,8 +143,14 @@ const decreaseWidth = {
   width: '10%',
 }
 
-export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
-  console.log("RECALING")
+export const LakeSelection = ({
+  id,
+  name,
+  coordinates,
+  index,
+  showLakeInfo,
+}) => {
+  console.log('RECALING')
   const {
     toggleChartVisibilty,
     handleClickDesactiveLake,
@@ -168,7 +174,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
     obsDepth,
     mode,
   } = useLakeSelectionHook({ id, name, coordinates, index, showLakeInfo })
- 
+
   console.log(active)
   console.log(data)
 
@@ -196,14 +202,14 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgOptic} />
                 <SpanBgWhite />
-                <StyledSpanLabel>optique</StyledSpanLabel>
+                <StyledSpanLabel>opt</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
             {RADAR && mode.volume.raw[1]?.length > 0 && (
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgRadar} />
                 <SpanBgWhite />
-                <StyledSpanLabel>radar</StyledSpanLabel>
+                <StyledSpanLabel>rad</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
             {REFERENCE && mode.volume.raw[2]?.length > 0 && (
@@ -221,24 +227,23 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgOptic} />
                 <SpanBgWhite />
-                <StyledSpanLabel>optique</StyledSpanLabel>
+                <StyledSpanLabel>opt</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
             {RADAR && data[id]?.[dataType]?.[obsDepth]?.raw[1]?.[0]?.date && (
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgRadar} />
                 <SpanBgWhite />
-                <StyledSpanLabel>radar</StyledSpanLabel>
+                <StyledSpanLabel>rad</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
-            {REFERENCE &&
-              data[id]?.[dataType]?.[obsDepth]?.raw[2]?.[0]?.date && (
-                <StyledDivContainerObsTypes>
-                  <StyledSpanObsColor style={bgReference} />
-                  <SpanBgWhite />
-                  <StyledSpanLabel>réf</StyledSpanLabel>
-                </StyledDivContainerObsTypes>
-              )}
+            {REFERENCE && data[id]?.[dataType]?.[obsDepth]?.raw[2]?.[0]?.date && (
+              <StyledDivContainerObsTypes>
+                <StyledSpanObsColor style={bgReference} />
+                <SpanBgWhite />
+                <StyledSpanLabel>réf</StyledSpanLabel>
+              </StyledDivContainerObsTypes>
+            )}
           </StyledDivObservationTypes>
         )}
         {YEAR && data[active.at(-1)] && (
@@ -250,7 +255,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgOptic} />
                   <SpanBgWhite />
-                  <StyledSpanLabel>optique</StyledSpanLabel>
+                  <StyledSpanLabel>opt</StyledSpanLabel>
                 </StyledDivContainerObsTypes>
               )}
             {RADAR &&
@@ -260,7 +265,7 @@ export const LakeSelection = ({id,name,coordinates,index,showLakeInfo,}) => {
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgRadar} />
                   <SpanBgWhite />
-                  <StyledSpanLabel>radar</StyledSpanLabel>
+                  <StyledSpanLabel>rad</StyledSpanLabel>
                 </StyledDivContainerObsTypes>
               )}
             {REFERENCE &&
