@@ -82,7 +82,7 @@ export default function useChartHook() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (OPTIC) {
+    if (OPTIC && data[active.at(-1)][dataType][obs.depth]?.raw[0]?.length > 0) {
       if (obs.types.includes(ObservationTypes.OPTIC)) return
       setObs(obs => ({
         depth: obs.depth,
@@ -96,10 +96,10 @@ export default function useChartHook() {
         types: obs.types.filter(el => el !== ObservationTypes.OPTIC),
       }))
     }
-  }, [OPTIC])
+  }, [OPTIC, dataType, obs.depth])
 
   useEffect(() => {
-    if (RADAR) {
+    if (RADAR && data[active.at(-1)][dataType][obs.depth]?.raw[1]?.length > 0) {
       if (obs.types.includes(ObservationTypes.RADAR)) return
       setObs(obs => ({
         depth: obs.depth,
@@ -113,10 +113,13 @@ export default function useChartHook() {
         types: obs.types.filter(el => el !== ObservationTypes.RADAR),
       }))
     }
-  }, [RADAR])
+  }, [RADAR, dataType, obs.depth])
 
   useEffect(() => {
-    if (REFERENCE) {
+    if (
+      REFERENCE &&
+      data[active.at(-1)][dataType][obs.depth]?.raw[2]?.length > 0
+    ) {
       if (obs.types.includes(ObservationTypes.REFERENCE)) return
       setObs(obs => ({
         depth: obs.depth,
@@ -130,7 +133,7 @@ export default function useChartHook() {
         types: obs.types.filter(el => el !== ObservationTypes.REFERENCE),
       }))
     }
-  }, [REFERENCE])
+  }, [REFERENCE, dataType, obs.depth])
 
   useEffect(() => {
     if (!OPTIC && !RADAR && !REFERENCE) {

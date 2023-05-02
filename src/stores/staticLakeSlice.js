@@ -13,6 +13,14 @@ const initialState = {
   seriePath: {},
 }
 
+// import folders from public/series
+const files = import.meta.glob('/src/series/*/*')
+const data = Object.entries(files).map(([, data]) => data)
+const allSeriesFromSrc = {}
+for (const item of data) {
+  allSeriesFromSrc.push(item.name.replace('/src', '.'))
+}
+
 const { getSeriePath, getTimeseriesPath } = SeriePathUtils
 export const staticLakeSlice = createSlice({
   name: 'information',
@@ -27,6 +35,27 @@ export const staticLakeSlice = createSlice({
       }
 
       if (!state.seriePath[id]) {
+        state.seriePath[id] = []
+        state.seriePath[id].push(
+          allSeriesFromSrc.filter(el => {
+            console.log(idFromItem, id)
+            if (id === idFromItem) {
+              return el.includes(idFromItem)
+            }
+          })
+        )
+      }
+      /* for (const item of allSeriesFromSrc) {
+        const regex = /\/(\d+)\//
+        const idFromItem = item.match(regex)[1]
+        // create seriePath by idFromItem with an array of all items incluing idFromItem
+        if (!state.seriePath[idFromItem]) {
+          state.seriePath[idFromItem] = []
+        }
+        state.seriePath[idFromItem].push(item)
+      } */
+
+      /* if (!state.seriePath[id]) {
         const serieTmp = []
 
         const fillingRateOptic10Days = getSeriePath(
@@ -144,7 +173,7 @@ export const staticLakeSlice = createSlice({
         )
 
         state.seriePath[id] = serieTmp
-      }
+      } */
     },
   },
 })

@@ -32,7 +32,7 @@ export function useAppHook() {
   const { active } = useSelector(state => state.stateLake)
   const { data, loaded } = useSelector(state => state.data)
   const { seriePath: serPath } = useSelector(state => state.information)
-  const { DAY, PERIOD, YEAR, dataType } = form
+  const { DAY, PERIOD, YEAR, dataType, OPTIC, RADAR, REFERENCE } = form
   const dispatch = useDispatch()
 
   const handleData = useCallback(
@@ -41,12 +41,11 @@ export function useAppHook() {
       const allSeriesPath = serPath[lakeId]
 
       const newAllData = await getDataRaw(allSeriesPath, form).catch({})
-
       let dataZSV = []
       let newfillingRateZSV = []
       let volumeDataFullDates = []
       let formalizedData = []
-      if (newAllData[2].length > 0) {
+      if (newAllData[2]?.length > 0) {
         if (dataType === DataTypes.FILLING_RATE) {
           dataZSV = getReferenceSerieDataType(newAllData[2], DataTypes.VOLUME)
         } else {
@@ -78,6 +77,7 @@ export function useAppHook() {
           }
         }
       })
+      console.log({ tmp })
       setNoDataFound(tmp)
 
       if (noData) return
@@ -131,7 +131,7 @@ export function useAppHook() {
       setLastObsDepth(obsDepth)
     },
 
-    [dispatch, active, dataType, obsDepth]
+    [dispatch, active, dataType, obsDepth, OPTIC, RADAR, REFERENCE]
   )
 
   useEffect(() => {
@@ -146,7 +146,6 @@ export function useAppHook() {
 
   useEffect(() => {
     if (
-      data[active.at(-1)]?.[dataType]?.[obsDepth] ||
       (lastDataType && dataType !== lastDataType) ||
       (lastObsDepth && obsDepth !== lastObsDepth)
     )
@@ -154,7 +153,7 @@ export function useAppHook() {
     const lakeId = active.at(-1)
     if (!lakeId) return
     handleData(lakeId)
-  }, [active, data, dataType, obsDepth])
+  }, [active, data, dataType, obsDepth, OPTIC, RADAR, REFERENCE])
 
   useEffect(() => {
     if (!lastObsDepth || !lastDataType) return
