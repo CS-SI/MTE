@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   active: [],
   indexToRemoveFromChartData: '',
-  lakeId: "",
+  lakeId: '',
 }
 
 export const stateLakeSlice = createSlice({
@@ -16,7 +16,6 @@ export const stateLakeSlice = createSlice({
         state.active.push(id)
         //state.lakeId = id
       }
-      
     },
     removeLake: (state, action) => {
       const { id } = action.payload
@@ -36,15 +35,19 @@ export const stateLakeSlice = createSlice({
     },
     getLakeId: (state, action) => {
       const { id } = action.payload
-      console.warn("IDDDDDDDD FROM GETLAK ID", id)
       if (state.lakeId !== id) {
-        state.lakeId =  id
+        state.lakeId = id
       }
-    }
+    },
   },
 })
 
-export const { addLake, removeLake, clearActiveLakes, updateActivelakes, getLakeId } =
-  stateLakeSlice.actions
+export const {
+  addLake,
+  removeLake,
+  clearActiveLakes,
+  updateActivelakes,
+  getLakeId,
+} = stateLakeSlice.actions
 
 export default stateLakeSlice.reducer

@@ -29,24 +29,18 @@ export function useAppHook() {
   const [noData, setNoData] = useState(false)
   const [noDataFound, setNoDataFound] = useState([])
   const form = useSelector(state => state.form)
-  console.warn("FOOOORM", form)
   const { active } = useSelector(state => state.stateLake)
   const { data, loaded } = useSelector(state => state.data)
   const { seriePath: serPath } = useSelector(state => state.information)
   const { DAY, PERIOD, YEAR, dataType } = form
   const dispatch = useDispatch()
 
-  console.log('-----DATA', data)
-
   const handleData = useCallback(
     async lakeId => {
-      //console.log(data[lakeId]?.[dataType]?.[obsDepth])
-
       if (data[lakeId]?.[dataType]?.[obsDepth]) return
       const allSeriesPath = serPath[lakeId]
 
       const newAllData = await getDataRaw(allSeriesPath, form).catch({})
-      console.warn("NEWALLDATA", newAllData)
 
       let dataZSV = []
       let newfillingRateZSV = []
@@ -72,9 +66,7 @@ export function useAppHook() {
 
       let tmp = []
       newAllData.forEach((serie, index) => {
-        console.warn("SERIES AND INDEX",serie,"----------", index)
         if (serie.length === 0) {
-          console.warn("SERIES LENGTH", serie.length)
           if (index === 0 && form.OPTIC === true) {
             tmp.push('optic')
           }
@@ -86,7 +78,6 @@ export function useAppHook() {
           }
         }
       })
-      console.warn("TMP IS", tmp)
       setNoDataFound(tmp)
 
       if (noData) return
@@ -101,7 +92,6 @@ export function useAppHook() {
         getDataFormalized(newAllData[1], dataType),
         tmpZSV[0],
       ]
-      console.warn('*******NEWDATA', newData)
       if (dataType === DataTypes.VOLUME) {
         volumeDataFullDates = fillEmptyDataOfDate([newData])
       }
@@ -139,22 +129,6 @@ export function useAppHook() {
 
       setLastDataType(dataType)
       setLastObsDepth(obsDepth)
-      console.log(dataWB[obsName])
-      console.log(dataWB)
-      console.log(obsName)
-      console.log(
-        dataType,
-        '-',
-        dataWB,
-        '-',
-        obsDepth,
-        '-',
-        obsName,
-        '-',
-        obsNameByYear,
-        '-',
-        volumeFullDates
-      )
     },
 
     [dispatch, active, dataType, obsDepth]
@@ -290,13 +264,13 @@ export function useAppHook() {
         data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year
       ).length
       if (numberOfYearsInData > styleLength) {
-        const numberOfYearsToAdd = numberOfYearsInData - styleLength
+        const numberOfYearsToAdd = numberOfYearsInData - styleLength + 1
         for (let i = 0; i < numberOfYearsToAdd; i++) {
           addChartColorForYear()
         }
       }
     }
-  }, [data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year])
+  }, [data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year, YEAR])
 
   return {
     isOneLakeActive,

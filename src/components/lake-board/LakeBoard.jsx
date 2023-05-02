@@ -18,7 +18,7 @@ const Container = styled('div', {
 const H3 = styled('h3', {
   fontFamily: 'sans-serif',
   marginBottom: theme.space.sm,
-  fontSize: theme.fontSizes.base
+  fontSize: theme.fontSizes.base,
 })
 
 const HeadContainer = styled('div', {
@@ -51,7 +51,6 @@ const Tooltip = styled(ReactTooltip, {
 export const LakeBoard = () => {
   const { VOLUME, clearSelection, activeLakesInfo, showInfo } =
     useLakeBoardHook()
-  console.warn("ACTIVE LAKE INFO",activeLakesInfo)
   return (
     <Container>
       {showInfo && <LakeCard />}

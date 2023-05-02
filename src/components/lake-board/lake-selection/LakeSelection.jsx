@@ -150,7 +150,6 @@ export const LakeSelection = ({
   index,
   showLakeInfo,
 }) => {
-  console.log('RECALING')
   const {
     toggleChartVisibilty,
     handleClickDesactiveLake,
@@ -174,9 +173,6 @@ export const LakeSelection = ({
     obsDepth,
     mode,
   } = useLakeSelectionHook({ id, name, coordinates, index, showLakeInfo })
-
-  console.log(active)
-  console.log(data)
 
   if (active.includes(id) && !data[id]?.[dataType]?.[obsDepth]) {
     return (
@@ -249,9 +245,9 @@ export const LakeSelection = ({
         {YEAR && data[active.at(-1)] && (
           <StyledDivObservationTypes>
             {OPTIC &&
-              Object.values(data[active.at(-1)]?.[dataType]?.[obsDepth]?.year)[
-                index
-              ][0]?.length > 0 && (
+              Object.values(
+                data[active.at(-1)]?.[dataType]?.[obsDepth]?.['year']
+              ).length > 0 && (
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgOptic} />
                   <SpanBgWhite />
@@ -259,9 +255,9 @@ export const LakeSelection = ({
                 </StyledDivContainerObsTypes>
               )}
             {RADAR &&
-              Object.values(data[active.at(-1)]?.[dataType]?.[obsDepth]?.year)[
-                index
-              ][1]?.length > 0 && (
+              Object.values(
+                data[active.at(-1)]?.[dataType]?.[obsDepth]?.['year']
+              ).length > 0 && (
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgRadar} />
                   <SpanBgWhite />
@@ -269,9 +265,9 @@ export const LakeSelection = ({
                 </StyledDivContainerObsTypes>
               )}
             {REFERENCE &&
-              Object.values(data[active.at(-1)]?.[dataType]?.[obsDepth]?.year)[
-                index
-              ][2]?.length > 0 && (
+              Object.values(
+                data[active.at(-1)]?.[dataType]?.[obsDepth]?.['year']
+              ).length > 0 && (
                 <StyledDivContainerObsTypes>
                   <StyledSpanObsColor style={bgReference} />
                   <SpanBgWhite />

@@ -387,10 +387,10 @@ export default function useChartHook() {
         xAxisID = `x${index}`
       }
       if (YEAR && obsType === 'OPTIC') {
-        backgroundColor = chart.YEAR.style[xAxisID].OPTIC.backgroundColor
-        borderColor = chart.YEAR.style[xAxisID].OPTIC.borderColor
+        backgroundColor = chart.YEAR.style[xAxisID]?.OPTIC.backgroundColor
+        borderColor = chart.YEAR.style[xAxisID]?.OPTIC.borderColor
         pointBackgroundColor =
-          chart.YEAR.style[xAxisID].OPTIC.pointBackgroundColor
+          chart.YEAR.style[xAxisID]?.OPTIC.pointBackgroundColor
       }
       if (YEAR && obsType === 'RADAR') {
         backgroundColor = chart.YEAR.style[xAxisID].RADAR.backgroundColor
@@ -541,8 +541,8 @@ export default function useChartHook() {
             },
             beforeBody(context) {
               let { label } = context[0].dataset
-              if (label === "OPTIC") {
-                label = "Optique"
+              if (label === 'OPTIC') {
+                label = 'Optique'
               }
               return `Observation: ${label}`
             },
@@ -794,8 +794,6 @@ export default function useChartHook() {
   const dataChart = {
     datasets: dataSets,
   }
-
-  console.warn("OPTIONS",options)
 
   return {
     dataChart,

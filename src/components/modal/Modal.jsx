@@ -88,7 +88,6 @@ export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
     handleSetNoData,
     noDataFound,
   })
-  console.warn("NODATA FOUND",noDataFound)
   return (
     <>
       {open && (
@@ -107,7 +106,7 @@ export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
           </Title>
           <Container>
             <Message>
-              No{' '}
+              Pas de donnée{noDataFound.length > 1 ? 's ' : ' '}
               {noDataFound.map(el => {
                 if (noDataFound.length > 1 && noDataFound.length <= 2) {
                   return el + ', '
@@ -115,7 +114,7 @@ export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
                   return el + ' '
                 }
               })}
-              time serie available
+              disponible.
             </Message>
             <ButtonOk onClick={handleClose}>OK</ButtonOk>
           </Container>

@@ -18,8 +18,7 @@ import { AppConfig, DurationTypes } from '../../../config'
 import { getSeriePath } from '@/utils/seriePath'
 import { getLakeId } from '../../../stores/stateLakeSlice'
 
-
-export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
+export const useLakeSelectionHook = ({ id, index, name }) => {
   const [bgOptic, setBgOptic] = useState({})
   const [bgRadar, setBgRadar] = useState({})
   const [bgReference, setBgReference] = useState({})
@@ -33,7 +32,6 @@ export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
   const { form } = useSelector(state => state)
 
   const { lakesChartOptions } = useSelector(state => state)
-  console.warn("STAAAAAAAAAATE", lakesChartOptions)
   const { yearsChartOptions } = useSelector(state => state)
   const { data, mode } = useSelector(state => state.data)
   const { information, seriePath } = useSelector(state => state.information)
@@ -65,34 +63,34 @@ export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
     if (YEAR) return
     setBgOptic({
       backgroundColor:
-        chartOptions[dataType].style.OPTIC[index].backgroundColor,
+        chartOptions[dataType].style?.OPTIC[index].backgroundColor,
     })
     setBgRadar({
       backgroundColor:
-        chartOptions[dataType].style.RADAR[index].backgroundColor,
+        chartOptions[dataType].style?.RADAR[index].backgroundColor,
     })
     setBgReference({
       backgroundColor:
-        chartOptions[dataType].style.REFERENCE[index].backgroundColor,
+        chartOptions[dataType].style?.REFERENCE[index].backgroundColor,
     })
   }, [chartOptions, dataType, index])
 
   useEffect(() => {
-    if (!YEAR) return
-    console.log(index)
+    if (!YEAR && !chartOptions.YEAR.style[`x${index}`]?.OPTIC.backgroundColor)
+      return
     setBgOptic({
       backgroundColor:
-        chartOptions.YEAR.style[`x${index}`].OPTIC.backgroundColor,
+        chartOptions.YEAR.style[`x${index}`]?.OPTIC.backgroundColor,
     })
     setBgRadar({
       backgroundColor:
-        chartOptions.YEAR.style[`x${index}`].RADAR.backgroundColor,
+        chartOptions.YEAR.style[`x${index}`]?.RADAR.backgroundColor,
     })
     setBgReference({
       backgroundColor:
-        chartOptions.YEAR.style[`x${index}`].REFERENCE.backgroundColor,
+        chartOptions.YEAR.style[`x${index}`]?.REFERENCE.backgroundColor,
     })
-  }, [YEAR, index, chartOptions.YEAR.style])
+  }, [YEAR, chartOptions.YEAR.style[`x${index}`]])
 
   const handleClickDesactiveLake = useCallback(() => {
     const activeLake = {
@@ -124,7 +122,7 @@ export const useLakeSelectionHook = ({ id, coordinates, index, name }) => {
 
   const toggleInfo = useCallback(() => {
     dispatch(toggleLakeChartInfoVisibility({ id }))
-    dispatch(getLakeId({id}))
+    dispatch(getLakeId({ id }))
   }, [dispatch, id])
 
   const handleDownloadFile = useCallback(async () => {
