@@ -31,7 +31,9 @@ export function useAppHook() {
   const form = useSelector(state => state.form)
   const { active } = useSelector(state => state.stateLake)
   const { data, loaded } = useSelector(state => state.data)
-  const { seriePath: serPath } = useSelector(state => state.information)
+  const { seriePath: serPath, information } = useSelector(
+    state => state.information
+  )
   const { DAY, PERIOD, YEAR, dataType, OPTIC, RADAR, REFERENCE } = form
   const dispatch = useDispatch()
 
@@ -39,6 +41,12 @@ export function useAppHook() {
     async lakeId => {
       if (data[lakeId]?.[dataType]?.[obsDepth]) return
       const allSeriesPath = serPath[lakeId]
+      console.log('allSeriesPath', allSeriesPath)
+      if (!allSeriesPath) {
+        dispatch(removeLake({ id: lakeId }))
+        setNoDataFound([information[lakeId].name])
+        return
+      }
       const newAllData = await getDataRaw(allSeriesPath, form).catch({})
       let dataZSV = []
       let newfillingRateZSV = []
