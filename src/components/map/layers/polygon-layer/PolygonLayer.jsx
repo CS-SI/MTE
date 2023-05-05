@@ -29,39 +29,34 @@ export const PolygonLayer = ({ data }) => {
       data.features.map(feature => {
         const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
         const { coordinates } = feature.geometry
+        let coord = []
+        if (coordinates.length >= 2) {
+          coord = coordinates.flat(coordinates.length)
+          console.log({ coordinates, length: coordinates.length, coord })
+          for (let i = 0; i < coordinates.length; i++) {
+            if (coordinates[i].length >= 2) {
+              // console.log('>>>>', coordinates[i])
+            }
+          }
 
-        let coord
-        if (coordinates[0][0].length === 2) {
-          coord = Array.from([coordinates[0]])
+          // console.log('!!!!!', coordinates)
+          // console.log('>>>', coord)
         } else {
           coord = coordinates[0]
+          // console.log('<<<', coord)
         }
 
-        /* if (coordinates.length > 1) {
-          let coordSorted = coordinates
-            .sort((a, b) => a[0].length - b[0].length)
-            .reverse()[0]
+        // const reversedMultiPolygons = coord.map(polygon => {
+        //   polygon.map(p => [p[1], p[0]])
+        // })
 
-          coord = Array.from([coordSorted[0]])
-        } */
-
-        /* if (ID_DB === 193) {
-          console.log('coord', coord)
-        }
-        if (ID_DB === 83) {
-          console.log('coord', coord)
-         */
-
-        const reversedMultiPolygons = coord.map(polygon =>
-          polygon.map(p => [p[1], p[0]])
-        )
+        // console.log('!!!!!!', reversedMultiPolygons)
         let polygonPositions
-
-        if (reversedMultiPolygons[0].length === 2) {
-          polygonPositions = Array.from([reversedMultiPolygons])
-        } else {
-          polygonPositions = reversedMultiPolygons
-        }
+        // if (reversedMultiPolygons[0]?.length === 2) {
+        //   polygonPositions = Array.from([reversedMultiPolygons])
+        // } else {
+        //   polygonPositions = reversedMultiPolygons
+        // }
 
         return (
           <Polygon
