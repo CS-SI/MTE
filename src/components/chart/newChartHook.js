@@ -82,7 +82,10 @@ export default function useChartHook() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (OPTIC && data[active.at(-1)][dataType][obs.depth]?.raw[0]?.length > 0) {
+    if (
+      OPTIC &&
+      data[active.at(-1)][dataType]?.[obs.depth]?.raw[0]?.length > 0
+    ) {
       if (obs.types.includes(ObservationTypes.OPTIC)) return
       setObs(obs => ({
         depth: obs.depth,
@@ -99,7 +102,10 @@ export default function useChartHook() {
   }, [OPTIC, dataType, obs.depth])
 
   useEffect(() => {
-    if (RADAR && data[active.at(-1)][dataType][obs.depth]?.raw[1]?.length > 0) {
+    if (
+      RADAR &&
+      data[active.at(-1)][dataType]?.[obs.depth]?.raw[1]?.length > 0
+    ) {
       if (obs.types.includes(ObservationTypes.RADAR)) return
       setObs(obs => ({
         depth: obs.depth,
@@ -118,7 +124,7 @@ export default function useChartHook() {
   useEffect(() => {
     if (
       REFERENCE &&
-      data[active.at(-1)][dataType][obs.depth]?.raw[2]?.length > 0
+      data[active.at(-1)][dataType]?.[obs.depth]?.raw[2]?.length > 0
     ) {
       if (obs.types.includes(ObservationTypes.REFERENCE)) return
       setObs(obs => ({

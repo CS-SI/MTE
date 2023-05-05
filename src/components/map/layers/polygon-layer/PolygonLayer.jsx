@@ -50,7 +50,7 @@ export const PolygonLayer = ({ data }) => {
         }
         if (ID_DB === 83) {
           console.log('coord', coord)
-        } */
+         */
 
         const reversedMultiPolygons = coord.map(polygon =>
           polygon.map(p => [p[1], p[0]])
@@ -67,7 +67,11 @@ export const PolygonLayer = ({ data }) => {
           <Polygon
             key={uuid()}
             positions={polygonPositions}
-            color={ID_DB.toString() === id ? '#CDF0EA' : 'blue'}
+            color={
+              ID_DB.toString() === id && active.includes(ID_DB)
+                ? '#CDF0EA'
+                : 'blue'
+            }
             // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
             eventHandlers={{
               click: () => {
