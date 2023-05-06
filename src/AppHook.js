@@ -41,7 +41,6 @@ export function useAppHook() {
     async lakeId => {
       if (data[lakeId]?.[dataType]?.[obsDepth]) return
       const allSeriesPath = serPath[lakeId]
-      console.log('allSeriesPath', allSeriesPath)
       if (!allSeriesPath) {
         dispatch(removeLake({ id: lakeId }))
         setNoDataFound([information[lakeId].name])
@@ -84,7 +83,6 @@ export function useAppHook() {
           }
         }
       })
-      console.log({ tmp })
       setNoDataFound(tmp)
 
       if (noData) return

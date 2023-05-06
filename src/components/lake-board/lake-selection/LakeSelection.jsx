@@ -87,7 +87,7 @@ const StyledDivObservationTypes = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-evenly',
-  width: '25%',
+  width: '20%',
   // paddingLeft: theme.space.sm,
 })
 

@@ -6,7 +6,7 @@ import { PropTypes } from 'prop-types'
 import lakesChartOptionsSlice, {
   toggleLakeChartSelection,
 } from '../../../../stores/lakesChartOptionsSlice'
-
+import { findLargestArray } from '../../../../utils/array'
 export const PolygonLayer = ({ data }) => {
   const [layer, setLayer] = useState(null)
   const {
@@ -30,38 +30,29 @@ export const PolygonLayer = ({ data }) => {
         const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
         const { coordinates } = feature.geometry
         let coord = []
-        if (coordinates.length >= 2) {
-          coord = coordinates.flat(coordinates.length)
-          console.log({ coordinates, length: coordinates.length, coord })
-          for (let i = 0; i < coordinates.length; i++) {
-            if (coordinates[i].length >= 2) {
-              // console.log('>>>>', coordinates[i])
-            }
-          }
 
-          // console.log('!!!!!', coordinates)
-          // console.log('>>>', coord)
-        } else {
-          coord = coordinates[0]
-          // console.log('<<<', coord)
-        }
-
-        // const reversedMultiPolygons = coord.map(polygon => {
-        //   polygon.map(p => [p[1], p[0]])
-        // })
-
-        // console.log('!!!!!!', reversedMultiPolygons)
-        let polygonPositions
-        // if (reversedMultiPolygons[0]?.length === 2) {
-        //   polygonPositions = Array.from([reversedMultiPolygons])
-        // } else {
-        //   polygonPositions = reversedMultiPolygons
+        // for (const polygonArray of coordinates) {
+        //   if (polygonArray[0].length === 2) {
+        //     if (coord.length === 0) {
+        //       coord = polygonArray
+        //     } else {
+        //       coord = [...coord, ...polygonArray]
+        //     }
+        //   }
+        //
+        //   if (polygonArray[0].length !== 1 && polygonArray[0].length !== 2) {
+        //     coord = coordinates.flat(2)
+        //   }
         // }
-
+        coord = findLargestArray(coordinates)
+        const reversedMultiPolygons = coord.map(polygon => [
+          polygon[1],
+          polygon[0],
+        ])
         return (
           <Polygon
             key={uuid()}
-            positions={polygonPositions}
+            positions={reversedMultiPolygons}
             color={ID_DB.toString() === id ? '#CDF0EA' : 'blue'}
             // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
             eventHandlers={{
