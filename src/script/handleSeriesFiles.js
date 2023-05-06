@@ -16,6 +16,7 @@ const filesAndFolders = allFiles.map(file => {
 const files = filesAndFolders.filter(file => !file.isFolder)
 const fileNames = files.map(file => file.name)
 
+
 /* A function that takes a filename and splits it by the underscore character. */
 const getFileNamePart = filename => filename.split("_")[0]
 
