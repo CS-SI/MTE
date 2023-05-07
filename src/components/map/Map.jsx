@@ -5,7 +5,9 @@ import { MarkerLayerCluster } from './layers/marker-layer-cluster/MarkerLayerClu
 import { PolygonLayer } from './layers/polygon-layer/PolygonLayer'
 import { PropTypes } from 'prop-types'
 
-const files = import.meta.glob('/src/data/geojson/*.geojson', { eager: true })
+const files = import.meta.glob('/src/data/geojson/filtered/*.geojson', {
+  eager: true,
+})
 const dataGeojson = Object.entries(files).map(([, data]) => data)
 
 const StyledMapContainer = styled(MapContainer, {
