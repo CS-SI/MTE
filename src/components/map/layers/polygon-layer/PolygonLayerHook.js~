@@ -129,22 +129,8 @@ export default function usePolygonLayerHook() {
       id: active.at(-1),
       coord: information[active.at(-1)].lakeCoord,
     })
+    
   }, [active.length])
-
-  useEffect(() => {
-    if (active.length === 0) return
-    if (zoomLevel <= 8) return
-    const allMarkersCluster = document.getElementsByClassName('marker-cluster')
-    const allMarkersIcons = document.getElementsByClassName(
-      'leaflet-marker-icon'
-    )
-    const allMarkers = [...allMarkersCluster, ...allMarkersIcons]
-    if (allMarkers) {
-      for (const marker of allMarkers) {
-        marker.style.display = 'none'
-      }
-    }
-  }, [active, zoomLevel, coordId])
 
   const activeLake = useCallback(
     (id, coordWW) => {

@@ -60,6 +60,9 @@ export const useLakeSelectionHook = ({ id, index, name }) => {
   }, [setlakeIconsOptions])
 
   useEffect(() => {
+    console.log({ index, bgOptic })
+  }, [bgOptic])
+  useEffect(() => {
     if (YEAR) return
     setBgOptic({
       backgroundColor:
@@ -78,18 +81,20 @@ export const useLakeSelectionHook = ({ id, index, name }) => {
   useEffect(() => {
     if (!YEAR && !chartOptions.YEAR.style[`x${index}`]?.OPTIC.backgroundColor)
       return
-    setBgOptic({
-      backgroundColor:
-        chartOptions.YEAR.style[`x${index}`]?.OPTIC.backgroundColor,
-    })
-    setBgRadar({
-      backgroundColor:
-        chartOptions.YEAR.style[`x${index}`]?.RADAR.backgroundColor,
-    })
-    setBgReference({
-      backgroundColor:
-        chartOptions.YEAR.style[`x${index}`]?.REFERENCE.backgroundColor,
-    })
+    if (YEAR) {
+      setBgOptic({
+        backgroundColor:
+          chartOptions.YEAR.style[`x${index}`]?.OPTIC.backgroundColor,
+      })
+      setBgRadar({
+        backgroundColor:
+          chartOptions.YEAR.style[`x${index}`]?.RADAR.backgroundColor,
+      })
+      setBgReference({
+        backgroundColor:
+          chartOptions.YEAR.style[`x${index}`]?.REFERENCE.backgroundColor,
+      })
+    }
   }, [YEAR, chartOptions.YEAR.style[`x${index}`]])
 
   const handleClickDesactiveLake = useCallback(() => {
