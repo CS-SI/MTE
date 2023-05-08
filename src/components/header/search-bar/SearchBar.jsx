@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useSearchBarHook } from './SearchBarHook'
 import { styled } from '@/stitches.config'
-import { CarbonSearch } from '../../carbon-icons'
 import Select from 'react-select'
 import { useEffect } from 'react'
 const SDiv = styled('div', {
@@ -9,7 +8,6 @@ const SDiv = styled('div', {
   'width': '14vw',
   'display': 'flex',
   'alignItems': 'center',
-
   '& .react-select__control': {
     width: '100%',
     minWidth: '200px',
@@ -26,6 +24,15 @@ const SDiv = styled('div', {
   '& .react-select__menu': {
     zIndex: '10000',
     color: 'black',
+  },
+  '@media only screen and (max-width: 1400px)': {
+    marginRight: '1.5rem',
+  },
+  '@media only screen and (max-width: 1200px)': {
+    marginRight: '2.5rem',
+  },
+  '@media only screen and (max-width: 1000px)': {
+    marginRight: '3.5rem',
   },
 })
 

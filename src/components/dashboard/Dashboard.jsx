@@ -5,7 +5,7 @@ import { styled, theme } from '@/stitches.config'
 const SDiv = styled('div', {
   heigth: '100%',
   width: '14vw',
-  minWidth: '250px',
+  minWidth: '15.625rem',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '$background',
