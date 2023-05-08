@@ -11,7 +11,7 @@ const SDiv = styled('div', {
   backgroundColor: '$background',
   position: 'absolute',
   top: '83px',
-  left: '14vw',
+  left: '15vw',
   marginLeft: '10px',
   zIndex: '1111',
   borderRadius: theme.borderRadius.sm,
@@ -68,7 +68,7 @@ const SDivCoord = styled('div', {
     listStyle: 'none',
   },
 })
-export const LakeCard = ({ id }) => {
+export const LakeCard = () => {
   const [lake, setLake] = useState({
     id: '',
     country: '',
@@ -101,7 +101,7 @@ export const LakeCard = ({ id }) => {
 
   const closeInfo = useCallback(() => {
     dispatch(toggleLakeChartInfoVisibility({ id: lake.id }))
-    dispatch(getLakeId({id: lake.id}))
+    dispatch(getLakeId({ id: lake.id }))
   }, [dispatch, lake.id])
 
   return (

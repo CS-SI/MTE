@@ -36,6 +36,7 @@ const Div = styled('div', {
 const DivFlexRow = styled('div', {
   display: 'flex',
   justifyContent: 'space-evenly',
+  fontSize: theme.fontSizes.base,
 })
 
 const H3 = styled('h3', {

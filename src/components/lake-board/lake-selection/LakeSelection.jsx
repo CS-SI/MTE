@@ -24,7 +24,7 @@ const StyledDiv = styled('div', {
 })
 
 const StyledContainerButton = styled('div', {
-  width: '30%',
+  width: '35%',
   height: '100%',
   display: 'flex',
   justifyContent: 'space-evenly',
@@ -87,7 +87,7 @@ const StyledDivObservationTypes = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-evenly',
-  width: '20%',
+  width: '15%',
   // paddingLeft: theme.space.sm,
 })
 

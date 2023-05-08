@@ -60,9 +60,6 @@ export const useLakeSelectionHook = ({ id, index, name }) => {
   }, [setlakeIconsOptions])
 
   useEffect(() => {
-    console.log({ index, bgOptic })
-  }, [bgOptic])
-  useEffect(() => {
     if (YEAR) return
     setBgOptic({
       backgroundColor:

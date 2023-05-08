@@ -20,6 +20,7 @@ const LogoContainer = styled('div', {
   display: 'flex',
   height: '100%',
   minWidth: '28rem',
+  maxWidth: '28rem',
 })
 const SImg = styled('img', {
   marginRight: '1rem',
