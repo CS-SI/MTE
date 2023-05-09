@@ -245,6 +245,7 @@ export const LakeSelection = ({
         {YEAR && data[active.at(-1)] && (
           <StyledDivObservationTypes>
             {OPTIC &&
+              data[active.at(-1)]?.[dataType]?.[obsDepth] &&
               Object.values(
                 data[active.at(-1)]?.[dataType]?.[obsDepth]?.['year']
               ).length > 0 && (
@@ -255,6 +256,7 @@ export const LakeSelection = ({
                 </StyledDivContainerObsTypes>
               )}
             {RADAR &&
+              data[active.at(-1)]?.[dataType]?.[obsDepth] &&
               Object.values(
                 data[active.at(-1)]?.[dataType]?.[obsDepth]?.['year']
               ).length > 0 && (
@@ -265,6 +267,7 @@ export const LakeSelection = ({
                 </StyledDivContainerObsTypes>
               )}
             {REFERENCE &&
+              data[active.at(-1)]?.[dataType]?.[obsDepth] &&
               Object.values(
                 data[active.at(-1)]?.[dataType]?.[obsDepth]?.['year']
               ).length > 0 && (

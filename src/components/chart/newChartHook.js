@@ -670,6 +670,7 @@ export default function useChartHook() {
 
   useEffect(() => {
     if (!data[active.at(-1)] || !YEAR || dataSets.length === 0) return
+    if (!data[active.at(-1)][dataType]?.[obs.depth]) return
     if (
       !YEAR ||
       dataSets.length !==
