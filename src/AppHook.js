@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { addData } from './stores/dataSlice'
 import { removeLake } from './stores/stateLakeSlice'
 import { addColorWB, addColorForYear } from './stores/chartSlice'
-import { ObservationTypes, DurationTypes, DataTypes } from './config'
+import { ObservationTypes, DurationTypes, DataTypes, AppConfig } from './config'
 import { fillEmptyDataOfDate, getDataByYear } from './utils/date'
 import {
   getDataFormalized,
@@ -36,6 +36,31 @@ export function useAppHook() {
   )
   const { DAY, PERIOD, YEAR, dataType, OPTIC, RADAR, REFERENCE } = form
   const dispatch = useDispatch()
+
+  const getObsTypeNameNotFound = useCallback(
+    (lakeId, form) => {
+      if (active.length === 0) return
+      const { OPTIC, RADAR, REFERENCE } = form
+      const allSeriesPath = serPath[lakeId]
+      const opticAbbr = AppConfig.observationTypes.OPTIC.abbr
+      const radarAbbr = AppConfig.observationTypes.RADAR.abbr
+      const referenceAbbr = AppConfig.observationTypes.REFERENCE.abbr
+      const obsTypeSeries = []
+      for (const seriePath of allSeriesPath) {
+        if (OPTIC && !seriePath.includes(opticAbbr)) {
+          obsTypeSeries.push(ObservationTypes.OPTIC)
+        }
+        if (RADAR && !seriePath.includes(radarAbbr)) {
+          obsTypeSeries.push(ObservationTypes.RADAR)
+        }
+        if (REFERENCE && !seriePath.includes(referenceAbbr)) {
+          obsTypeSeries.push(ObservationTypes.REFERENCE)
+        }
+      }
+      return Array.from(new Set(obsTypeSeries))
+    },
+    [serPath, active]
+  )
 
   const handleData = useCallback(
     async lakeId => {
@@ -73,7 +98,7 @@ export function useAppHook() {
 
       let tmp = []
       //console.log(form)
-     
+
       newAllData.forEach((serie, index) => {
         if (serie.length === 0) {
           if (index === 0 && form.OPTIC === true) {
@@ -161,6 +186,12 @@ export function useAppHook() {
     )
       return
     const lakeId = active.at(-1)
+    const obsTypeNoData = getObsTypeNameNotFound(lakeId, form)
+    if (obsTypeNoData?.length > 0) {
+      setNoDataFound(obsTypeNoData)
+      return
+    }
+
     if (!lakeId) return
     handleData(lakeId)
   }, [active, data, dataType, obsDepth, OPTIC, RADAR, REFERENCE])
