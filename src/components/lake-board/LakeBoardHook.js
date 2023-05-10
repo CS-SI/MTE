@@ -18,7 +18,6 @@ export default function useLakeBoardHook() {
   )
   const { active } = useSelector(state => state.stateLake)
   const { lakeId } = useSelector(state => state.stateLake)
-  lakeId
   const { data } = useSelector(state => state.data)
   const { yearsChartOptions, lakesChartOptions } = useSelector(state => state)
   const { information } = useSelector(state => state.information)

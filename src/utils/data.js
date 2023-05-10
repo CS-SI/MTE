@@ -6,12 +6,24 @@ import { DataTypes } from '../config'
 import { getHighestValue } from './math'
 
 const getDataRaw = async (seriePath, form) => {
+  //console.warn("seriePath",seriePath)
   const allSeries = getSeriePath(seriePath, form)
-  const data = []
-  for (const series of allSeries) {
-    const res = await csv(series).catch(err => console.error(err))
-    data.push(res || [])
+  //console.log("ALLSERIES from getDataRaw()", allSeries)
+  //console.log(Object.keys(allSeries))
+  const data = [[],[],[]]
+  //console.log("ZEROO",data[0])
+  if (allSeries.optic.length > 0) {
+    const {optic} = allSeries
+    //console.log("OPTICCCC",optic)
+    for (const series of optic) {
+      //console.log("PROCESSING SERIES",series)
+        const res = await csv(series).catch(err => console.error(err))
+        //console.log("RES",res)
+        data[0] = res
+    }
   }
+
+  //console.log("DATA from getDataRaw()", data)
   return data
 }
 
