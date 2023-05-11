@@ -8,6 +8,7 @@ import { toggleActiveYears } from '../../stores/lakesSlice'
 import { toggleYear } from '../../stores/formSlice'
 export default function useFormHook({ canvas }) {
   const form = useSelector(state => state.form)
+  const { dataType } = form
   const { active } = useSelector(state => state.stateLake)
   const { information } = useSelector(state => state.information)
 
@@ -17,12 +18,15 @@ export default function useFormHook({ canvas }) {
       return information[id].name
     })
     .join('_')
+
   const dataTypesValues = AppConfig.attributes
   const observationTypesValues = AppConfig.observationTypes
   const durationValues = AppConfig.duration
   const chartTypesValues = AppConfig.chartTypes
   const modeTypesValues = AppConfig.modeTypes
-
+  const attributeFilename = AppConfig.attributes[dataType].label
+    .replace(' ', '_')
+    .toLowerCase()
   const downloadChartImage = useCallback(
     e => {
       e.preventDefault()
@@ -30,16 +34,13 @@ export default function useFormHook({ canvas }) {
       const dataURL = canvas.toDataURL('image/png')
       if (dataURL) {
         try {
-          saveAs(
-            dataURL,
-            `${filenameLakes}_${form.dataType.toLowerCase()}_chart.png`
-          )
+          saveAs(dataURL, `${filenameLakes}_${attributeFilename}_chart.png`)
         } catch (error) {
           console.error(error)
         }
       }
     },
-    [canvas, filenameLakes]
+    [canvas, filenameLakes, dataType]
   )
 
   const resetZoomChart = useCallback(e => {
