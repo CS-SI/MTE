@@ -110,30 +110,39 @@ export const getLastDateOfArrays = arr => {
   return dateTmp.at(-1)
 }
 
-export const fillEmptyDataOfDate = arr => {
-  const arrOfDates = []
-  const newData = []
-  const startingDate = getStartDate(arr)
-  const endingDate = new Date(getLastDate(arr))
-  for (
-    let d = new Date(startingDate[0]);
-    d <= endingDate;
-    d.setDate(d.getDate() + 1)
-  ) {
-    arrOfDates.push(new Date(d).toISOString().slice(0, 10))
+const fillDateArray = (startDate, endDate) => {
+  const dateArray = []
+
+  while (startDate <= endDate) {
+    const year = startDate.getFullYear()
+    const month = (startDate.getMonth() + 1).toString().padStart(2, '0')
+    const day = startDate.getDate().toString().padStart(2, '0')
+    const formattedDate = `${year}-${month}-${day}`
+
+    dateArray.push(new Date(formattedDate).toISOString().slice(0, 10))
+
+    startDate.setDate(startDate.getDate() + 1)
   }
+
+  return dateArray
+}
+
+export const fillEmptyDataOfDate = arr => {
+  const newData = []
+  const startingDate = new Date(getStartDate(arr))
+  const endingDate = new Date(getLastDate(arr))
+  const arrOfDates = fillDateArray(startingDate, endingDate)
+
   let value = ''
   let arrTmp = []
   const obsTypes = arr[0]?.map(obs => obs)
   const obsTypesDateFiltered = obsTypes.map(obs => {
     if (obs?.length === 0) return []
     return obs?.filter(el => {
-      return (
-        el.date >= new Date(startingDate[0]).toISOString().slice(0, 10) &&
-        el.date <= endingDate.toISOString().slice(0, 10)
-      )
+      return el.date >= arrOfDates[0] && el.date <= arrOfDates.at(-1)
     })
   })
+
   obsTypesDateFiltered.forEach(obs => {
     if (obs?.length === 0) return []
     arrOfDates.forEach(date => {
@@ -147,10 +156,7 @@ export const fillEmptyDataOfDate = arr => {
     })
     newData.push(
       arrTmp.filter(el => {
-        return (
-          el.date >= new Date(startingDate.at(-1)).toISOString().slice(0, 10) &&
-          el.date <= endingDate.toISOString().slice(0, 10)
-        )
+        return el.date >= arrOfDates[0] && el.date <= arrOfDates.at(-1)
       })
     )
     arrTmp = []

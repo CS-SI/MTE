@@ -73,10 +73,10 @@ export const dataSlice = createSlice({
         let dayFirstDate = modeVolumeFirstDate
         let dayLastDate = modeVolumeLastDate
 
-        if (volumeFirstDate >= modeVolumeFirstDate) {
+        if (volumeFirstDate > modeVolumeFirstDate) {
           dayFirstDate = volumeFirstDate
         }
-        if (volumeLastDate <= modeVolumeLastDate) {
+        if (volumeLastDate < modeVolumeLastDate) {
           dayLastDate = volumeLastDate
         }
 
