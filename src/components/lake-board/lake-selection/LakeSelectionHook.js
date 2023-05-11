@@ -130,7 +130,11 @@ export const useLakeSelectionHook = ({ id, index, name }) => {
   const handleDownloadFile = useCallback(async () => {
     const zip = new JSZip()
     const seriePathLakes = getSeriePath(seriePath[id], form)
-    for (const path of seriePathLakes) {
+    const seriePaths = Object.values(seriePathLakes)
+      .map(path => path.filter(p => !p.includes('No')))
+      .flat()
+
+    for (const path of seriePaths) {
       const fileName = path.split('/').pop().split('.')[0]
       const res = await fetch(path)
       const blob = await res.blob()

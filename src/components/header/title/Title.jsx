@@ -7,19 +7,24 @@ const H1 = styled('h1', {
   'letterSpacing': '.3rem',
   // adapt the font size to the screen size
   '@media (max-width: 1600px)': {
-    fontSize: '2.0rem',
+    fontSize: '1.8rem',
+    lineHeight: '1.8rem',
   },
   '@media (max-width: 1400px)': {
-    fontSize: '1.8rem',
+    fontSize: '1.6rem',
+    lineHeight: '1.6rem',
   },
   '@media (max-width: 1200px)': {
-    fontSize: '1.6rem',
+    fontSize: '1.4rem',
+    lineHeight: '1.4rem',
   },
   '@media (max-width: 1000px)': {
-    fontSize: '1.4rem',
+    fontSize: '1.2rem',
+    lineHeight: '1.2rem',
   },
   '@media (max-width: 800px)': {
     fontSize: '1.0rem',
+    lineHeight: '1.0rem',
   },
 })
 

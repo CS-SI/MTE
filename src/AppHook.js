@@ -188,7 +188,7 @@ export function useAppHook() {
     const lakeId = active.at(-1)
     const obsTypeNoData = getObsTypeNameNotFound(lakeId, form)
     if (obsTypeNoData?.length > 0) {
-      setNoDataFound(obsTypeNoData)
+      setNoDataFound(obsTypeNoData.map(el => el.toLowerCase()))
       return
     }
 
