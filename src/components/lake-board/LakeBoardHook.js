@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux'
-import { toggleActiveYears } from '../../stores/lakesSlice'
 import { clearActiveLakes } from '../../stores/stateLakeSlice'
 import { useDispatch } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
@@ -33,9 +32,6 @@ export default function useLakeBoardHook() {
   }, [DAY, PERIOD])
 
   useEffect(() => {
-    /* const isInfoCliked = Object.entries(lakesChartOptions)
-      .filter(([id, { infoVisible }]) => infoVisible)
-      .map(([id]) => id) */
     if (lakesChartOptions[lakeId] && lakesChartOptions[lakeId].infoVisible) {
       setShowInfo(true)
     } else {
@@ -86,23 +82,12 @@ export default function useLakeBoardHook() {
     }
     setActiveLakesInfo(allLakesSortedLikeActive)
 
-    // setActiveLakesInfo(allLakesActiveIdName)
     setLastMode(null)
   }, [VOLUME, YEAR, active, information])
 
   useEffect(() => {
     if (!data[active.at(-1)] || YEAR || VOLUME) return
     if (Object.entries(data[active.at(-1)]).length > 0) return
-    // const info = Object.entries(information).filter(([id]) => {
-    // 	return active.includes(id)
-    // })
-    // const lakesIdName = info
-    // 	.map(([id, { name }]) => ({ id, name }))
-    // 	.filter(el => el.id === active.at(-1))[0]
-    // const activeLakesInfoId = activeLakesInfo.map(el => el.id)
-    // const newIdName = Object.values(lakesIdName).filter(
-    // 	el => el.id !== activeLakesInfoId.includes(el.id)
-    // )
     if (
       yearsChartOptions &&
       activeLakesInfo
@@ -164,13 +149,6 @@ export default function useLakeBoardHook() {
           .map(([id, { name }]) => ({ id, name }))
           .filter(el => el.id === active.at(-1))[0]
         const activeLakesInfoId = activeLakesInfo?.map(el => el.id)
-        // const allLakesSortedLikeActive = []
-        // for (const id of active) {
-        // 	const lake = allLakesActiveIdName.find(el => el.id === id)
-        // 	if (lake) {
-        // 		allLakesSortedLikeActive.push(lake)
-        // 	}
-        // }
         if (!activeLakesInfoId.includes(lakesIdName.id)) {
           setActiveLakesInfo([...activeLakesInfo, lakesIdName])
           setLastMode(null)

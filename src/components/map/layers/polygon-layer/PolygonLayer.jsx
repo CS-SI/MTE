@@ -3,16 +3,13 @@ import { LayerGroup, Polygon, Tooltip } from 'react-leaflet'
 import { v4 as uuid } from '@lukeed/uuid'
 import { useState, useEffect } from 'react'
 import { PropTypes } from 'prop-types'
-import lakesChartOptionsSlice, {
-  toggleLakeChartSelection,
-} from '../../../../stores/lakesChartOptionsSlice'
+import { toggleLakeChartSelection } from '../../../../stores/lakesChartOptionsSlice'
 import { findLargestArray } from '../../../../utils/array'
 export const PolygonLayer = ({ data }) => {
   const [layer, setLayer] = useState(null)
   const {
     id,
     activeLake,
-    color,
     zoomLevel,
     active,
     updateLake,
@@ -31,19 +28,6 @@ export const PolygonLayer = ({ data }) => {
         const { coordinates } = feature.geometry
         let coord = []
 
-        // for (const polygonArray of coordinates) {
-        //   if (polygonArray[0].length === 2) {
-        //     if (coord.length === 0) {
-        //       coord = polygonArray
-        //     } else {
-        //       coord = [...coord, ...polygonArray]
-        //     }
-        //   }
-        //
-        //   if (polygonArray[0].length !== 1 && polygonArray[0].length !== 2) {
-        //     coord = coordinates.flat(2)
-        //   }
-        // }
         coord = findLargestArray(coordinates)
         const reversedMultiPolygons = coord.map(polygon => [
           polygon[1],

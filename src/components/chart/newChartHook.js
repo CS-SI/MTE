@@ -17,9 +17,6 @@ import {
   addLakeLoaded,
   resetLakeLoaded,
 } from '../../stores/chartDataLoadedSlice'
-import { isEqual } from '../../utils/data'
-import chartDataLoadedSlice from '../../stores/chartDataLoadedSlice'
-import OBSERVATION_TYPES from '../../config/ObservationTypes'
 
 export default function useChartHook() {
   const [chartData, setChartData] = useState([])

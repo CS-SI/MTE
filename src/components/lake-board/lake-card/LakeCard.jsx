@@ -1,11 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
 import { CarbonClose } from '../../carbon-icons'
 import { styled, theme } from '@/stitches.config.js'
-import { toggleLakeChartInfoVisibility } from '@stores/lakesChartOptionsSlice'
-import { useSelector } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
-import { useDispatch } from 'react-redux'
-import { getLakeId } from '../../../stores/stateLakeSlice'
+import { useLakeCardHook } from './lakeCardHook'
+
 const SDiv = styled('div', {
   padding: '1.5rem',
   backgroundColor: '$background',
@@ -69,41 +66,42 @@ const SDivCoord = styled('div', {
   },
 })
 export const LakeCard = () => {
-  const [lake, setLake] = useState({
-    id: '',
-    country: '',
-    name: '',
-    lakeCoord: [],
-    mainUse: '',
-    nearCity: '',
-    damCoord: [],
-  })
-  const { lakesChartOptions } = useSelector(state => state)
-  const { information } = useSelector(state => state.information)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    const idLakeShowInfo = Object.entries(lakesChartOptions)
-      .filter(([id, { infoVisible }]) => infoVisible)
-      .map(([id]) => id)[0]
-    if (!idLakeShowInfo) return
-    const { id, country, name, lakeCoord, mainUse, nearCity, damCoord } =
-      information[idLakeShowInfo]
-    setLake({
-      id,
-      country,
-      name,
-      lakeCoord,
-      mainUse,
-      nearCity,
-      damCoord,
-    })
-  }, [lakesChartOptions, information])
-
-  const closeInfo = useCallback(() => {
-    dispatch(toggleLakeChartInfoVisibility({ id: lake.id }))
-    dispatch(getLakeId({ id: lake.id }))
-  }, [dispatch, lake.id])
-
+  const { lake, closeInfo } = useLakeCardHook()
+  // const [lake, setLake] = useState({
+  //   id: '',
+  //   country: '',
+  //   name: '',
+  //   lakeCoord: [],
+  //   mainUse: '',
+  //   nearCity: '',
+  //   damCoord: [],
+  // })
+  // const { lakesChartOptions } = useSelector(state => state)
+  // const { information } = useSelector(state => state.information)
+  // const dispatch = useDispatch()
+  // useEffect(() => {
+  //   const idLakeShowInfo = Object.entries(lakesChartOptions)
+  //     .filter(([_, { infoVisible }]) => infoVisible)
+  //     .map(([id]) => id)[0]
+  //   if (!idLakeShowInfo) return
+  //   const { id, country, name, lakeCoord, mainUse, nearCity, damCoord } =
+  //     information[idLakeShowInfo]
+  //   setLake({
+  //     id,
+  //     country,
+  //     name,
+  //     lakeCoord,
+  //     mainUse,
+  //     nearCity,
+  //     damCoord,
+  //   })
+  // }, [lakesChartOptions, information])
+  //
+  // const closeInfo = useCallback(() => {
+  //   dispatch(toggleLakeChartInfoVisibility({ id: lake.id }))
+  //   dispatch(getLakeId({ id: lake.id }))
+  // }, [dispatch, lake.id])
+  //
   return (
     <SDiv>
       <SButtonContainer>

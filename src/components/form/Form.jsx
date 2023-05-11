@@ -3,7 +3,7 @@ import { Checkbox } from '@components/checkbox/Checkbox'
 import { Select } from '@components/select/Select'
 import { SelectOption } from '@components/select/SelectOption'
 import { styled, theme } from '@/stitches.config'
-import { DataTypes, ChartTypes, ModeTypes } from '../../config'
+import { DataTypes, ChartTypes } from '../../config'
 import { CarbonDocumentDownload, CarbonZoomReset } from '../carbon-icons'
 import ReactTooltip from 'react-tooltip'
 import {

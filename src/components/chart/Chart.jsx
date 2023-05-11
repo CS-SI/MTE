@@ -8,7 +8,7 @@ import {
   TimeScale,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from 'chart.js'
 import { Line, Scatter } from 'react-chartjs-2'
 import zoomPlugin from 'chartjs-plugin-zoom'
@@ -35,7 +35,7 @@ ChartJS.register(
       ctx.fillStyle = '#fff'
       ctx.fillRect(0, 0, chart.width, chart.height)
       ctx.restore()
-    }
+    },
   }
 )
 
@@ -43,7 +43,7 @@ const StyledDiv = styled('div', {
   display: 'flex',
   height: '55%',
   width: '100%',
-  border: '1px solid #ccc'
+  border: '1px solid #ccc',
 })
 
 export const Chart = ({ handleCanvas }) => {

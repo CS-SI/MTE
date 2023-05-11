@@ -66,14 +66,12 @@ export function useAppHook() {
     async lakeId => {
       if (data[lakeId]?.[dataType]?.[obsDepth]) return
       const allSeriesPath = serPath[lakeId]
-      //console.log("ALLSERIESPATH", allSeriesPath)
       if (!allSeriesPath) {
         dispatch(removeLake({ id: lakeId }))
         setNoDataFound([information[lakeId].name])
         return
       }
       const newAllData = await getDataRaw(allSeriesPath, form).catch({})
-      //console.warn("NEWALLDATA",newAllData)
       let dataZSV = []
       let newfillingRateZSV = []
       let volumeDataFullDates = []
@@ -97,7 +95,6 @@ export function useAppHook() {
       }
 
       let tmp = []
-      //console.log(form)
 
       newAllData.forEach((serie, index) => {
         if (serie.length === 0) {
@@ -112,7 +109,6 @@ export function useAppHook() {
           }
         }
       })
-      //console.warn(tmp)
       setNoDataFound(tmp)
 
       if (noData) return

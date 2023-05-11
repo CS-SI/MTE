@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Marker } from 'react-leaflet'
 import { v4 as uuid } from '@lukeed/uuid'
-import { noSizeIcon } from '@/icons/transparentIcon'
 import { defaultIcon } from '@/icons/defaultIcon'
 import useMarkerLayerClusterHook from './MarkerLayerClusterHook'
 import MarkerClusterGroup from 'react-leaflet-markercluster'

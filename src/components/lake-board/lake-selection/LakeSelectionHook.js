@@ -14,7 +14,7 @@ import { removeDataFromVolume } from '@stores/dataSlice'
 import { saveAs } from 'file-saver'
 import { useDispatch, useSelector } from 'react-redux'
 import JSZip from 'jszip'
-import { AppConfig, DurationTypes } from '../../../config'
+import { DurationTypes } from '../../../config'
 import { getSeriePath } from '@/utils/seriePath'
 import { getLakeId } from '../../../stores/stateLakeSlice'
 
