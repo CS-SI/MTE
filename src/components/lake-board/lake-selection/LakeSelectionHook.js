@@ -14,7 +14,7 @@ import { removeDataFromVolume } from '@stores/dataSlice'
 import { saveAs } from 'file-saver'
 import { useDispatch, useSelector } from 'react-redux'
 import JSZip from 'jszip'
-import { DurationTypes } from '../../../config'
+import { AppConfig, DurationTypes } from '../../../config'
 import { getSeriePath } from '@/utils/seriePath'
 import { getLakeId } from '../../../stores/stateLakeSlice'
 
@@ -140,8 +140,11 @@ export const useLakeSelectionHook = ({ id, index, name }) => {
       const blob = await res.blob()
       zip.file(`${fileName}.csv`, blob)
     }
+    const dataTypeLabel = AppConfig.attributes[dataType].label
+      .replaceAll(' ', '_')
+      .toLowerCase()
     zip.generateAsync({ type: 'blob' }).then(content => {
-      saveAs(content, `${name}_${dataType.toLowerCase()}.zip`)
+      saveAs(content, `${name}_${dataTypeLabel}.zip`)
     })
   }, [id, dataType])
 
