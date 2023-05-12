@@ -179,7 +179,7 @@ export default function usePolygonLayerHook() {
     if (active.length === 0) return
     if (YEAR && dataFromStore[active.at(-1)]) {
       const dataYears =
-        dataFromStore[active.at(-1)]?.[dataType]?.[obsDepth].year
+        dataFromStore[active.at(-1)]?.[dataType]?.[obsDepth]?.year
       if (!dataYears) return
       const years = Object.keys(dataYears)
       dispatch(addYearsChartOptions({ years }))
