@@ -12,6 +12,7 @@ import {
   getReferenceSerieDataType,
   makeFillingRateZSVdata,
 } from './utils/data'
+import { resetModeVolume } from './stores/dataSlice'
 import { addLakeChartOptions } from './stores/lakesChartOptionsSlice'
 import { addYearsChartOptions } from './stores/yearsChartOptionsSlice'
 import DATA_TYPES from './config/DataTypes'
@@ -291,6 +292,9 @@ export function useAppHook() {
   useEffect(() => {
     if (active.length > 10) {
       addChartColor()
+    }
+    if (active.length === 0) {
+      dispatch(resetModeVolume())
     }
   }, [active])
 

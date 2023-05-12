@@ -1,13 +1,15 @@
 import { current } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { DataTypes, DurationTypes, ObservationTypes } from './../config'
+import { active } from 'd3'
 
 const initialState = {
   data: {},
   loaded: [],
   mode: {
     volume: {
-      raw: [],
+      [DurationTypes.DAY]: {},
+      [DurationTypes.PERIOD]: {},
     },
   },
 }
@@ -60,12 +62,14 @@ export const dataSlice = createSlice({
         ...state.data[id][dataType][obsDepth],
         full: dataWB[volumeFullDates],
       }
-
-      if (!state.mode.volume.raw || state.mode.volume.raw.length === 0) {
-        state.mode.volume.raw = dataWB[volumeFullDates]
+      if (
+        !state.mode.volume[obsDepth] ||
+        Array.from(state.mode.volume[obsDepth]).length === 0
+      ) {
+        state.mode.volume[obsDepth] = dataWB[volumeFullDates]
       } else {
-        const modeVolumeFirstDate = state.mode.volume.raw[0][0].date
-        const modeVolumeLastDate = state.mode.volume.raw[0].at(-1).date
+        const modeVolumeFirstDate = state.mode.volume[obsDepth][0][0].date
+        const modeVolumeLastDate = state.mode.volume[obsDepth][0].at(-1).date
 
         const volumeFirstDate = dataWB[volumeFullDates][0][0].date
         const volumeLastDate = dataWB[volumeFullDates][0].at(-1).date
@@ -86,64 +90,72 @@ export const dataSlice = createSlice({
           })
         })
 
-        state.mode.volume.raw = state.mode.volume.raw.map(obs => {
+        state.mode.volume[obsDepth] = state.mode.volume[obsDepth].map(obs => {
           return obs.filter(o => {
             return o.date >= dayFirstDate && o.date <= dayLastDate
           })
         })
 
-        state.mode.volume.raw = state.mode.volume.raw.map((obs, index) => {
-          return obs.map((el, i) => {
-            const { date, value } = volumeFilter[index][i]
-            if (el.date === date) {
-              return {
-                date: el.date,
-                value: el.value + value,
+        state.mode.volume[obsDepth] = state.mode.volume[obsDepth].map(
+          (obs, index) => {
+            return obs.map((el, i) => {
+              const { date, value } = volumeFilter[index][i]
+              if (el.date === date) {
+                return {
+                  date: el.date,
+                  value: el.value + value,
+                }
               }
-            }
-          })
-        })
+            })
+          }
+        )
       }
     },
     removeDataFromVolume: (state, action) => {
-      const { id, obsDepth, activeLake } = action.payload
+      const { id, obsDepth, activeLake, active } = action.payload
       if (activeLake.length === 0) {
-        state.mode.volume.raw = []
+        state.mode.volume = {
+          [DurationTypes.DAY]: {},
+          [DurationTypes.PERIOD]: {},
+        }
       }
       if (activeLake.length === 1) {
-        state.mode.volume.raw = state.data[id].VOLUME?.[obsDepth].full
+        state.mode.volume[obsDepth] =
+          state.data[active[0]].VOLUME?.[obsDepth].full
       }
       if (activeLake.length > 1) {
         const volumeRawToRemove = state.data[id].VOLUME?.[obsDepth].full.map(
           el => {
             return el.filter(
               el =>
-                el.date >= state.mode.volume.raw[0][0].date &&
-                el.date <= state.mode.volume.raw[0].at(-1).date
+                el.date >= state.mode.volume[obsDepth][0][0].date &&
+                el.date <= state.mode.volume[obsDepth][0].at(-1).date
             )
           }
         )
 
-        state.mode.volume.raw = state.mode.volume.raw.map((obs, index) => {
-          return obs.map((el, i) => {
-            const { date, value } = volumeRawToRemove[index][i]
-            if (el.date == date) {
-              return {
-                date: el.date,
-                value: el.value > value ? el.value - value : value - el.value,
+        state.mode.volume[obsDepth] = state.mode.volume[obsDepth].map(
+          (obs, index) => {
+            return obs.map((el, i) => {
+              const { date, value } = volumeRawToRemove[index][i]
+              if (el.date == date) {
+                return {
+                  date: el.date,
+                  value: el.value > value ? el.value - value : value - el.value,
+                }
               }
-            }
-          })
-        })
+            })
+          }
+        )
       }
     },
     updateModeVolume: (state, action) => {
       const { id, obsDepth } = action.payload
-      if (state.mode.volume.raw.length === 0) {
-        state.mode.volume.raw = state.data[id].VOLUME[obsDepth].full
+      if (state.mode.volume[obsDepth].length === 0) {
+        state.mode.volume[obsDepth] = state.data[id].VOLUME[obsDepth].full
       } else {
-        const modeVolumeFirstDate = state.mode.volume.raw[0]?.[0].date
-        const modeVolumeLastDate = state.mode.volume.raw[0]?.at(-1).date
+        const modeVolumeFirstDate = state.mode.volume[obsDepth][0]?.[0].date
+        const modeVolumeLastDate = state.mode.volume[obsDepth][0]?.at(-1).date
 
         const volumeFirstDate = state.data[id].VOLUME[obsDepth].full[0][0].date
         const volumeLastDate =
@@ -165,28 +177,31 @@ export const dataSlice = createSlice({
           })
         })
 
-        state.mode.volume.raw = state.mode.volume.raw.map(obs => {
+        state.mode.volume[obsDepth] = state.mode.volume[obsDepth].map(obs => {
           return obs.filter(o => {
             return o.date >= dayFirstDate && o.date <= dayLastDate
           })
         })
 
-        state.mode.volume.raw = state.mode.volume.raw.map((obs, index) => {
-          return obs.map((el, i) => {
-            const { date, value } = volumeFilter[index][i]
-            if (el.date === date) {
-              return {
-                date: el.date,
-                value: el.value + value,
+        state.mode.volume[obsDepth] = state.mode.volume[obsDepth].map(
+          (obs, index) => {
+            return obs.map((el, i) => {
+              const { date, value } = volumeFilter[index][i]
+              if (el.date === date) {
+                return {
+                  date: el.date,
+                  value: el.value + value,
+                }
               }
-            }
-          })
-        })
+            })
+          }
+        )
       }
     },
     resetModeVolume: state => {
       state.mode.volume = {
-        raw: [],
+        [DurationTypes.DAY]: {},
+        [DurationTypes.PERIOD]: {},
       }
     },
   },

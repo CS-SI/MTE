@@ -71,7 +71,7 @@ export default function useChartHook() {
   const { active, indexToRemoveFromChartData } = useSelector(
     state => state.stateLake
   )
-  const { information } = useSelector(state => state)
+  const { information } = useSelector(state => state.information)
   const { data, mode } = useSelector(state => state.data)
   const { lakesLoaded } = useSelector(state => state.chartDataLoaded)
 
@@ -258,56 +258,59 @@ export default function useChartHook() {
   }, [indexToRemoveFromChartData])
 
   useEffect(() => {
-    if ((YEAR || VOLUME) && !data[active.at(-1)]?.[dataType]) return
-    if (!obs.depth && lakesLoaded?.[active.at(-1)]?.[dataType][obs.depth])
-      return
-    if (!data[active.at(-1)]?.[dataType]?.[obs.depth]?.raw) return
-    let dataTmp = []
+    if (!YEAR && !VOLUME) {
+      if (!data[active.at(-1)]?.[dataType]) return
+      if (!obs.depth && lakesLoaded?.[active.at(-1)]?.[dataType][obs.depth])
+        return
+      if (!data[active.at(-1)]?.[dataType]?.[obs.depth]?.raw) return
 
-    for (const id of active) {
-      const dataRaw = data[id]?.[dataType]?.[obs.depth]?.raw
-      if (!dataRaw) return
+      let dataTmp = []
+
+      for (const id of active) {
+        const dataRaw = data[id]?.[dataType]?.[obs.depth]?.raw
+        if (!dataRaw) return
+        if (
+          (lakesLoaded?.[id]?.[dataType]?.[obs.depth] &&
+            lastFormOptions.lastObstypes === obs.types) ||
+          lastFormOptions.lastObsDepth === obs.depth ||
+          dataType === lastFormOptions.lastDataType
+        )
+          continue
+        const dataActualized = handleObsType(dataRaw, OPTIC, RADAR, REFERENCE)
+        dataTmp.push(dataActualized)
+        dispatch(addLakeLoaded({ id, dataType, obsDepth: obs.depth }))
+      }
       if (
-        (lakesLoaded?.[id]?.[dataType]?.[obs.depth] &&
-          lastFormOptions.lastObstypes === obs.types) ||
-        lastFormOptions.lastObsDepth === obs.depth ||
-        dataType === lastFormOptions.lastDataType
-      )
-        continue
-      const dataActualized = handleObsType(dataRaw, OPTIC, RADAR, REFERENCE)
-      dataTmp.push(dataActualized)
-      dispatch(addLakeLoaded({ id, dataType, obsDepth: obs.depth }))
+        chartData.length === 0 ||
+        lastFormOptions.lastObstypes !== obs.types ||
+        lastFormOptions.lastObsDepth !== obs.depth ||
+        dataType !== formOptions.dataType
+      ) {
+        setChartData(dataTmp)
+      } else {
+        setChartData([...chartData, ...dataTmp])
+      }
+      if (
+        obs.depth !== formOptions.obsDepth ||
+        dataType !== formOptions.dataType ||
+        obs.types !== formOptions.obstypes
+      ) {
+        setLastFormOptions({
+          ...formOptions,
+        })
+        setFormOptions({
+          mode: 'normal',
+          dataType,
+          obsDepth: obs.depth,
+          obstypes: obs.types,
+        })
+      }
     }
-    if (
-      chartData.length === 0 ||
-      lastFormOptions.lastObstypes !== obs.types ||
-      lastFormOptions.lastObsDepth !== obs.depth ||
-      dataType !== formOptions.dataType
-    ) {
-      setChartData(dataTmp)
-    } else {
-      setChartData([...chartData, ...dataTmp])
-    }
-    if (
-      obs.depth !== formOptions.obsDepth ||
-      dataType !== formOptions.dataType ||
-      obs.types !== formOptions.obstypes
-    ) {
-      setLastFormOptions({
-        ...formOptions,
-      })
-      setFormOptions({
-        mode: 'normal',
-        dataType,
-        obsDepth: obs.depth,
-        obstypes: obs.types,
-      })
-    }
-  }, [active, data, obs.depth, obs.types, dataType, YEAR])
+  }, [active, data, obs.depth, obs.types, dataType])
 
   useEffect(() => {
-    if (!VOLUME || YEAR) return
-    const dataVolume = mode.volume.raw
+    if (!VOLUME || Array.from(mode.volume[obs.depth]).length === 0) return
+    const dataVolume = mode.volume[obs.depth]
     const dataVolumeActualized = handleObsType(
       dataVolume,
       OPTIC,
@@ -331,7 +334,7 @@ export default function useChartHook() {
         obstypes: obs.types,
       })
     }
-  }, [VOLUME, mode, obs.depth, obs.types, dataType])
+  }, [VOLUME, mode.volume, obs.depth, obs.types, dataType])
 
   useEffect(() => {
     if (
@@ -572,7 +575,7 @@ export default function useChartHook() {
                     .map(item => item.value)
                 })
                 const allActiveLakesName = active.map(id => {
-                  return information.information[id].name
+                  return information[id].name
                 })
                 return allValue.map((val, index) => {
                   const name = allActiveLakesName[index]
@@ -734,8 +737,8 @@ export default function useChartHook() {
             obs.types[idx],
             idx,
             VOLUME
-              ? active.map(id => information.information[id].name)[index - 1]
-              : active.map(id => information.information[id].name)[index],
+              ? active.map(id => information[id].name)[index - 1]
+              : active.map(id => information[id].name)[index],
             index
           )
           const itemDates = itm?.map(el => el.date)
@@ -766,7 +769,7 @@ export default function useChartHook() {
               itm[0],
               formOptions.obstypes[idx],
               index,
-              information.information[active.at(-1)].name,
+              information[active.at(-1)].name,
               index
             )
             const dateBegin = itm[0][0].date

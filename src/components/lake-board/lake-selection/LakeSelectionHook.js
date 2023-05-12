@@ -100,7 +100,7 @@ export const useLakeSelectionHook = ({ id, index, name }) => {
     }
     dispatch(removeLake({ id }))
     dispatch(removeLakeChartOptions({ id }))
-    dispatch(removeDataFromVolume({ id, obsDepth, activeLake }))
+    dispatch(removeDataFromVolume({ id, obsDepth, activeLake, active }))
   }, [dispatch, id, active.length])
 
   const toggleSelectedLake = useCallback(() => {

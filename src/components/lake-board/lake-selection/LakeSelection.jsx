@@ -173,7 +173,6 @@ export const LakeSelection = ({
     obsDepth,
     mode,
   } = useLakeSelectionHook({ id, name, coordinates, index, showLakeInfo })
-
   if (active.includes(id) && !data[id]?.[dataType]?.[obsDepth]) {
     return (
       <StyledDivDots>
@@ -194,21 +193,21 @@ export const LakeSelection = ({
       <StyledDiv css={isSelected && backgroundBorderColored}>
         {VOLUME && id === 'total' && (
           <StyledDivObservationTypes>
-            {OPTIC && mode.volume.raw[0]?.length > 0 && (
+            {OPTIC && mode.volume[obsDepth][0]?.length > 0 && (
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgOptic} />
                 <SpanBgWhite />
                 <StyledSpanLabel>opt</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
-            {RADAR && mode.volume.raw[1]?.length > 0 && (
+            {RADAR && mode.volume[obsDepth][1]?.length > 0 && (
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgRadar} />
                 <SpanBgWhite />
                 <StyledSpanLabel>rad</StyledSpanLabel>
               </StyledDivContainerObsTypes>
             )}
-            {REFERENCE && mode.volume.raw[2]?.length > 0 && (
+            {REFERENCE && mode.volume[obsDepth][2]?.length > 0 && (
               <StyledDivContainerObsTypes>
                 <StyledSpanObsColor style={bgReference} />
                 <SpanBgWhite />
