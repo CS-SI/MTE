@@ -45,11 +45,6 @@ export default function useChartHook() {
     lastObstypes: [],
   })
 
-  const [isSame, setIsSame] = useState({
-    dataType: '',
-    obsDepth: '',
-  })
-
   const form = useSelector(state => state.form)
   const chart = useSelector(state => state.chart)
   const { lakesChartOptions } = useSelector(state => state)
@@ -177,24 +172,6 @@ export default function useChartHook() {
   }, [active.length])
 
   useEffect(() => {
-    if (obs.depth === lastFormOptions.lastObsDepth) {
-      setIsSame(el => ({
-        dataType: el.dataType,
-        obsDepth: true,
-      }))
-    }
-  }, [obs.depth, lastFormOptions.lastObsDepth])
-
-  useEffect(() => {
-    if (dataType === lastFormOptions.lastDataType) {
-      setIsSame(el => ({
-        obsDepth: el.obsDepth,
-        dataType: true,
-      }))
-    }
-  }, [dataType, lastFormOptions.lastDataType])
-
-  useEffect(() => {
     if (!lastFormOptions.lastMode) return
     if (
       formOptions.dataType !== lastFormOptions.lastDataType ||
@@ -306,7 +283,7 @@ export default function useChartHook() {
         })
       }
     }
-  }, [active, data, obs.depth, obs.types, dataType])
+  }, [active, data, obs.depth, obs.types, dataType, YEAR, VOLUME])
 
   useEffect(() => {
     if (!VOLUME || Array.from(mode.volume[obs.depth]).length === 0) return
