@@ -1,11 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { addLake } from '@/stores/stateLakeSlice'
-import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { DurationTypes } from '../../../config'
+import { addLakeChartOptions } from '../../../stores/lakesChartOptionsSlice'
+import { updateActivelakes } from '../../../stores/stateLakeSlice'
+import { updateModeVolume } from '../../../stores/dataSlice'
 
 export const useSearchBarHook = lakeInfo => {
   const [options, setOptions] = useState([])
+  const [obsDepth, setObsDepth] = useState('')
   const { information } = useSelector(state => state.information)
+  const { data } = useSelector(state => state.data)
+  const { dataType, PERIOD, DAY, VOLUME } = useSelector(state => state.form)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -20,12 +27,27 @@ export const useSearchBarHook = lakeInfo => {
     setOptions(optTmp)
   }, [information])
 
-  const handleSearch = () => {
-    const { id } = lakeInfo
-    const { coord } = information[id]
-    if (id) {
-      dispatch(addLake({ id, coord }))
+  useEffect(() => {
+    if (PERIOD) {
+      setObsDepth(DurationTypes.PERIOD)
     }
-  }
+    if (DAY) {
+      setObsDepth(DurationTypes.DAY)
+    }
+  }, [PERIOD, DAY])
+
+  const handleSearch = useCallback(() => {
+    const { id } = lakeInfo
+    const { lakeCoord } = information[id]
+    if (id) {
+      dispatch(addLake({ id, lakeCoord }))
+    }
+    if (data[id]?.[dataType][obsDepth]) {
+      dispatch(updateActivelakes({ id }))
+      dispatch(addLakeChartOptions({ id }))
+      if (!VOLUME) return
+      dispatch(updateModeVolume({ id, obsDepth }))
+    }
+  }, [lakeInfo, data, dataType, obsDepth, VOLUME])
   return { handleSearch, options }
 }

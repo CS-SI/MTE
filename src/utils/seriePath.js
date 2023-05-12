@@ -9,7 +9,7 @@ export const getSeriePathByObsTypeAndObsDepth = (serie, obsType, obsDepth) => {
 
 export const getSeriePath = (seriePath, form) => {
   const { dataType, DAY, PERIOD, OPTIC, RADAR, REFERENCE } = form
-  const tmp = {"radar": [], "optic" : [], "ref": []}
+  const tmp = { radar: [], optic: [], ref: [] }
   const allSeriePaths = seriePath
     .filter(path => {
       return (
@@ -18,18 +18,11 @@ export const getSeriePath = (seriePath, form) => {
       )
     })
     .map(path => {
-      
-      if (
-        DAY &&
-        RADAR 
-      ) {
-        tmp.radar.push("NoRadarData")
+      if (DAY && RADAR) {
+        tmp.radar.push('NoRadarData')
       }
-      if (
-        PERIOD &&
-        RADAR 
-      ) {
-        tmp.radar.push("NoRadarData")
+      if (PERIOD && RADAR) {
+        tmp.radar.push('NoRadarData')
       }
       if (
         DAY &&
@@ -49,13 +42,10 @@ export const getSeriePath = (seriePath, form) => {
       ) {
         tmp.optic.push(path)
       }
-      if (
-        REFERENCE
-      ) {
-        tmp.ref.push("NoRefData")
+      if (REFERENCE) {
+        tmp.ref.push('NoRefData')
       }
       return tmp
     })
-    //console.log("HELLOWW", tmp)
   return tmp
 }

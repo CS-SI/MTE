@@ -72,6 +72,15 @@ const Tooltip = styled(ReactTooltip, {
   zIndex: '1111 !important',
 })
 
+const StickyP = styled('p', {
+  position: 'fixed',
+  bottom: 0,
+  marginBottom: theme.space.xs,
+  fontSize: theme.fontSizes.xs,
+  color: '$text',
+  textAlign: 'center',
+})
+
 export const Form = ({ canvas }) => {
   const {
     chartTypesValues,
@@ -209,6 +218,7 @@ export const Form = ({ canvas }) => {
             </Tooltip>
           </ButtonIconContainer>
         )}
+        <StickyP>Propulsé par CS Group</StickyP>
       </StyledContainer>
     </form>
   )
