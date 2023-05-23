@@ -114,7 +114,7 @@ export const globalStyles = globalCss({
       fontFamily: 'montserrat',
       fontStyle: 'normal',
       fontWeight: 400,
-      src: "url('/fonts/montserrat/montserrat-Regular.woff') format('woff')" /* Modern Browsers */,
+      src: "url('/fonts/montserrat/montserrat-regular.woff') format('woff')" /* Modern Browsers */,
     },
     {
       fontDisplay: 'swap',
