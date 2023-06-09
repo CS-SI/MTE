@@ -11,7 +11,7 @@ const allSeriesFromSrc = Object.keys(files).map(key => {
 
 const regex = /\/(\d+)\//
 const allIds = allSeriesFromSrc.map(item => {
-  return item.match(regex)[1]
+  return item.match(regex)?.[1]
 })
 const uniqueIds = [...new Set(allIds)]
 
@@ -19,7 +19,7 @@ const seriePath = {}
 for (const id of uniqueIds) {
   seriePath[id] = []
   for (const item of allSeriesFromSrc) {
-    if (item.match(regex)[1] === id) {
+    if (item.match(regex)?.[1] === id) {
       seriePath[id].push(item)
     }
   }
