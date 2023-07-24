@@ -10,7 +10,6 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { Header } from './components/header/Header'
-import { Link, Route, Routes } from 'react-router-dom'
 
 const SAppContainer = styled('div', {
   display: 'flex',
@@ -34,7 +33,7 @@ const themeMap = {
   light: null,
   dark: darkTheme,
 }
-const AppContainer = () => {
+const App = () => {
   const {
     toggleTheme,
     theme,
@@ -70,15 +69,6 @@ const AppContainer = () => {
 
 function About() {
   return <h2>About</h2>
-}
-
-const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<AppContainer />} />
-      <Route path="/about" element={<About />} />
-    </Routes>
-  )
 }
 
 export default App

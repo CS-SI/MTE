@@ -18,6 +18,8 @@ import {
   toggleYear,
 } from '../../stores/formSlice'
 import { Radiobox } from '../radiobox/RadioBox'
+import { Link } from 'react-router-dom'
+
 const StyledContainer = styled('div', {
   fontFamily: 'sans-serif',
   color: '$text',
@@ -79,6 +81,18 @@ const StickyP = styled('p', {
   fontSize: theme.fontSizes.xs,
   color: '$text',
   textAlign: 'center',
+})
+
+const StyledLink = styled(Link, {
+  'position': 'fixed',
+  'bottom': '30px',
+  'color': '$text',
+  'textDecoration': 'none',
+  'width': 'fit-content',
+  '&:hover': {
+    opacity: 0.6,
+    textDecoration: 'none',
+  },
 })
 
 export const Form = ({ canvas }) => {
@@ -218,6 +232,7 @@ export const Form = ({ canvas }) => {
             </Tooltip>
           </ButtonIconContainer>
         )}
+        <StyledLink to="/about">À propos</StyledLink>
         <StickyP>Propulsé par CS Group</StickyP>
       </StyledContainer>
     </form>

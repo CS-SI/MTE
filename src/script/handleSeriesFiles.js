@@ -1,6 +1,6 @@
-import fs from "node:fs"
+import fs from 'node:fs'
 
-const BASEFOLDER = "./../../public/series"
+const BASEFOLDER = './public/series'
 
 /* Reading all the files in the baseFolder and then mapping them to an object with the name and whether
 it is a folder or not. */
@@ -16,9 +16,8 @@ const filesAndFolders = allFiles.map(file => {
 const files = filesAndFolders.filter(file => !file.isFolder)
 const fileNames = files.map(file => file.name)
 
-
 /* A function that takes a filename and splits it by the underscore character. */
-const getFileNamePart = filename => filename.split("_")[0]
+const getFileNamePart = filename => filename.split('_')[0]
 
 /**
  * It takes a list of files, creates a folder for each file, and moves the file into the folder
@@ -43,7 +42,7 @@ const moveFileToFolder = () => {
 
 try {
   moveFileToFolder()
-  console.log("DONE")
+  console.log('DONE')
 } catch (error) {
   console.error(error)
 }
