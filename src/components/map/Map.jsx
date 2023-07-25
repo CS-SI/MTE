@@ -4,21 +4,28 @@ import { styled } from '@stitches/react'
 import { MarkerLayerCluster } from './layers/marker-layer-cluster/MarkerLayerCluster'
 import { PolygonLayer } from './layers/polygon-layer/PolygonLayer'
 import { PropTypes } from 'prop-types'
+import { DepartementsPolygonLayer } from './layers/polygon-layer/DepartementsPolygon'
 
-const files = import.meta.glob('/src/data/geojson/filtered/*.geojson', {
+const waterBodyGeojson = import.meta.glob(
+  '/src/data/geojson/filtered/*.geojson',
+  {
+    eager: true,
+  }
+)
+
+const departementGeojson = import.meta.glob('/src/data/geojson/*.geojson', {
   eager: true,
 })
-const dataGeojson = Object.entries(files).map(([, data]) => data)
-
+const waterBody = Object.entries(waterBodyGeojson).map(([, data]) => data)
+const departement = Object.entries(departementGeojson).map(([, data]) => data)
 const StyledMapContainer = styled(MapContainer, {
   width: '100%',
   height: '100%',
 })
 export const Map = () => {
-  const { coordinates } = useMapHook({ dataGeojson })
-
+  const { coordinates } = useMapHook({ waterBody })
   return (
-    <StyledMapContainer center={coordinates} zoom={5.0} scrollWheelZoom={true}>
+    <StyledMapContainer center={coordinates} zoom={6.0} scrollWheelZoom={true}>
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="OSM Streets">
           <TileLayer
@@ -32,10 +39,15 @@ export const Map = () => {
             attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
           />
         </LayersControl.BaseLayer>
-        {dataGeojson.map((data, index) => (
+        {waterBody.map((data, index) => (
           <div key={index.toString()}>
             <PolygonLayer data={data} />
             <MarkerLayerCluster data={data} />
+          </div>
+        ))}
+        {departement.map((data, index) => (
+          <div key={index.toString()}>
+            <DepartementsPolygonLayer data={data} />
           </div>
         ))}
       </LayersControl>

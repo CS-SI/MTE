@@ -2,12 +2,12 @@ import { addInformation } from '../../stores/staticLakeSlice'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
-export default function useMapHook({ dataGeojson }) {
-  const coordinates = [45.3501, 2.72778]
+export default function useMapHook({ waterBody }) {
+  const coordinates = [46.4947387, 2.6028326]
   const dispatch = useDispatch()
 
   useEffect(() => {
-    for (const data of dataGeojson) {
+    for (const data of waterBody) {
       const { features } = data
       features.forEach(({ properties }) => {
         const {
