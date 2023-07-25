@@ -1,4 +1,5 @@
 import { styled, theme } from '@/stitches.config'
+import { Link } from 'react-router-dom'
 const Container = styled('div', {
   fontFamily: 'sans-serif',
   color: '$text',
@@ -72,9 +73,24 @@ const Figcaption = styled('figcaption', {
   textAlign: 'center',
   marginTop: theme.space.xs,
 })
+
+const StickyLink = styled(Link, {
+  'position': 'fixed',
+  'top': '80px',
+  'left': '50px',
+  'textDecoration': 'none',
+  'color': '$text',
+  '& span': {
+    fontWeight: 'bold',
+    marginRight: theme.space.xs,
+  },
+})
 const About = () => {
   return (
     <Container>
+      <StickyLink to="/">
+        <span>&#8630;</span>Retour au tableau
+      </StickyLink>
       <Section>
         <H1>FRANCE - SUIVI SATELITAIRE DE RESERVOIRS</H1>
         <p>
