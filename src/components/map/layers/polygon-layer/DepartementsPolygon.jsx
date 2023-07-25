@@ -21,8 +21,9 @@ export const DepartementsPolygonLayer = ({ data }) => {
           <Polygon
             key={uuid()}
             positions={reversedMultiPolygons}
-            color={'#FBDFBA'}
+            color="#FBDFBA"
             weight={1}
+            fillColor="transparent"
           ></Polygon>
         )
       })
