@@ -256,38 +256,38 @@ const About = () => {
 
         <FigureContainer>
           <Figure>
-            <Img src="/etape1.jpg" alt="Etape 1" />
+            <Img src="/images/etape1.jpg" alt="Etape 1" />
             <Figcaption>Etape 1</Figcaption>
           </Figure>
           <Figure>
-            <Img src="/etape2.jpg" alt="Etape 2" />
+            <Img src="/images/etape2.jpg" alt="Etape 2" />
             <Figcaption>Etape 2</Figcaption>
           </Figure>
         </FigureContainer>
         <FigureContainer>
           <Figure>
-            <Img src="/etape3.jpg" alt="Etape 3" />
+            <Img src="/images/etape3.jpg" alt="Etape 3" />
             <Figcaption>Etape 3</Figcaption>
           </Figure>
           <Figure>
-            <Img src="/etape4.jpg" alt="Etape 4" />
+            <Img src="/images/etape4.jpg" alt="Etape 4" />
             <Figcaption>Etape 4</Figcaption>
           </Figure>
         </FigureContainer>
         <FigureContainer>
           <Figure>
-            <Img src="/etape5.jpg" alt="Etape 5" />
+            <Img src="/images/etape5.jpg" alt="Etape 5" />
             <Figcaption>Etape 5</Figcaption>
           </Figure>
           <Figure>
-            <Img src="/etape6.jpg" alt="Etape 6" />
+            <Img src="/images/etape6.jpg" alt="Etape 6" />
             <Figcaption>Etape 6</Figcaption>
           </Figure>
         </FigureContainer>
         <FigureContainer>
           <LilFigure>
-            <Img src="/etape7a.jpg" alt="Etape 7" />
-            <Img src="/etape7b.jpg" />
+            <Img src="/images/etape7a.jpg" alt="Etape 7" />
+            <Img src="/iamges/etape7b.jpg" />
             <Figcaption>Etape 7</Figcaption>
           </LilFigure>
         </FigureContainer>
