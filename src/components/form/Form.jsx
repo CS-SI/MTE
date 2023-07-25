@@ -87,10 +87,16 @@ const StyledLink = styled(Link, {
   'position': 'fixed',
   'bottom': '30px',
   'color': '$text',
+  'fontSize': theme.fontSizes.xs,
   'textDecoration': 'none',
   'width': 'fit-content',
+  'border': '1px solid $text',
+  'borderRadius': theme.borderRadius.xs,
+  'padding': theme.space.xs + ' ' + theme.space.sm,
+  'opacity': 1,
   '&:hover': {
-    opacity: 0.6,
+    opacity: 0.8,
+    backgroundColor: '#00aaff',
     textDecoration: 'none',
   },
 })

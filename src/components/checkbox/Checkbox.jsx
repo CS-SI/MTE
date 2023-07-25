@@ -8,7 +8,10 @@ const Container = styled('div', {
 })
 
 const Input = styled('input', {
-  accentColor: 'blue',
+  'accentColor': 'blue',
+  '&:hover': {
+    cursor: 'pointer',
+  },
 })
 
 const Label = styled('label', {

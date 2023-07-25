@@ -2,9 +2,12 @@ import useSelectHook from './SelectHook'
 import { PropTypes } from 'prop-types'
 import { styled, theme } from '@/stitches.config'
 const StyledSelect = styled('select', {
-  fontFamily: 'sans-serif',
-  fontSize: theme.fontSizes.base,
-  width: '100%',
+  'fontFamily': 'sans-serif',
+  'fontSize': theme.fontSizes.base,
+  'width': '100%',
+  '&:hover': {
+    cursor: 'pointer',
+  },
 })
 
 export const Select = ({ id, value, children, setAttributeValue }) => {

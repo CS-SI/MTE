@@ -8,7 +8,10 @@ const Label = styled('label', {
   marginLeft: theme.space.sm,
 })
 const Input = styled('input', {
-  accentColor: 'blue',
+  'accentColor': 'blue',
+  '&:hover': {
+    cursor: 'pointer',
+  },
 })
 export const Radiobox = ({ id, label, abbr, storeAction, value, disabled }) => {
   const { isChecked, onChange } = useRadioboxHook({
