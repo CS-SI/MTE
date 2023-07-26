@@ -2,18 +2,18 @@
 
 Il est requis d'avoir nodejs installer(https://nodejs.org/en/download/)
 
-1. Cloner le projet.
-2. Se rendre à la racine du projet.
-3. Se mettre sur la branche master `git checkout master`
-4. Installer les dependences avec la commande `npm install`.
-5. Ajouter/Editer les series CSV présentes dans le répertoire `public/series`.
-6. Aller dans le dossier `src/script`.
-7. Exécuter le script handleSeriesFiles avec la commande `node handleSeriesFiles.js`.
-8. Un message "DONE" ou un message d'erreur s'affichera dans le terminal quand le script sera terminé.
-9. Revenir a la racine du projet `cd ../../`.
-10. Afficher les changements avec `git status`.
-11. Ajouter les changements désirés `git add + < fichier désirés >`.
-12. Ajouter un message avec `git commit -m "< message >"`.
-13. Envoyer les changements sur la branch "master" `git push`.
-14. Deployer les changements avec la commande `npm run build-deploy`.
-15. Le message "Published" confirmera le deploiement.
+1. Ouvrir un terminal.
+2. Cloner le projet avec la commande `git clone git@github.com:CS-SI/MTE.git`.
+3. Se rendre à la racine du projet.
+4. Se mettre sur la branche master `git checkout master`
+5. Installer les dependences avec la commande `npm install`.
+6. Ajouter/Editer les series CSV présentes dans le répertoire `public/series`.
+7. Afficher les changements avec `git status`.
+8. Ajouter les changements désirés `git add + < fichier désirés >`.
+9. Ajouter un message avec `git commit -m "< message >"`.
+10. Envoyer les changements sur la branch "master" `git push`.
+11. Deployer les changements avec la commande `npm run deploy-pipeline`.
+12. Le message 'Files are stored in folders'confirmera l'ajout des fichiers.
+13. Le message 'Geojson rewritten successfully' confirmera la réécriture du Geojson
+    afin afficher les réservoirs dont on a au minimum une série temporelle.
+14. Le message "Published" confirmera le deploiement.

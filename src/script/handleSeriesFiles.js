@@ -42,7 +42,7 @@ const moveFileToFolder = () => {
 
 try {
   moveFileToFolder()
-  console.log('DONE')
+  console.log('Files are stored in folders')
 } catch (error) {
   console.error(error)
 }

@@ -5,7 +5,6 @@ const BASEFOLDER = './public/series'
 const GEOJSONPATH =
   './src/data/geojson/340-retenues-pourLoiZSV_V6_sans_tampon_corrections.geojson'
 
-  
 const allFiles = fs.readdirSync(BASEFOLDER)
 const Ids = allFiles.map(id => +id)
 
@@ -15,7 +14,6 @@ data = await Fs.readFile(GEOJSONPATH, { encoding: 'utf-8' })
   .catch(error => {
     console.log('ERROR', error)
   })
-
 
 let newDataArray = []
 let newDataGeoJsonObj = {}
@@ -35,20 +33,18 @@ newDataGeoJsonObj = Object.assign({}, data, {
   features: newDataArray,
 })
 
-
-
-const dataInJson = JSON.stringify(newDataGeoJsonObj);
+const dataInJson = JSON.stringify(newDataGeoJsonObj)
 
 // writing the JSON string content to a file
-fs.writeFile("./src/data/geojson/filtered/data.geojson", dataInJson, (error) => {
+fs.writeFile('./src/data/geojson/filtered/data.geojson', dataInJson, error => {
   // throwing the error
   // in case of a writing problem
   if (error) {
     // logging the error
-    console.error(error);
+    console.error(error)
 
-    throw error;
+    throw error
   }
 
-  console.log("data.geojson written correctly");
-});
+  console.log('Geojson rewritten successfully')
+})

@@ -12,7 +12,7 @@
     "build-deploy": "npm run build && npm run deploy",
     "parse": "node ./src/script/handleGeoJsonFilter.js",
     "file-to-folder": "node ./src/script/handleSeriesFiles.js",
-    "all-steps": "npm run file-to-folder && npm run parse && npm run build-deploy"
+    "deploy-pipeline": "npm run file-to-folder && npm run parse && npm run build-deploy"
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.0",
