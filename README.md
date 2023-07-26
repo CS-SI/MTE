@@ -3,7 +3,7 @@
 Il est requis d'avoir nodejs installer(https://nodejs.org/en/download/)
 
 1. Ouvrir un terminal.
-2. Cloner le projet avec la commande `git clone git@github.com:CS-SI/MTE.git`.
+2. Cloner le projet avec la commande `git clone git@github.com:CS-SI/MTE.git`.  
    Ou mettre à jour le projet avec la commande `git pull`.
 3. Se rendre à la racine du projet.
 4. Se mettre sur la branche master `git checkout master`
