@@ -303,7 +303,7 @@ const About = () => {
         <FigureContainer>
           <LilFigure>
             <Img src="/images/etape7a.jpg" alt="Etape 7" />
-            <Img src="/iamges/etape7b.jpg" />
+            <Img src="/images/etape7b.jpg" />
             <Figcaption>Etape 7</Figcaption>
           </LilFigure>
         </FigureContainer>
