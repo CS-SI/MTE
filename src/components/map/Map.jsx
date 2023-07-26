@@ -13,9 +13,12 @@ const waterBodyGeojson = import.meta.glob(
   }
 )
 
-const departementGeojson = import.meta.glob('/src/data/geojson/*.geojson', {
-  eager: true,
-})
+const departementGeojson = import.meta.glob(
+  '/src/data/geojson/departements/*.geojson',
+  {
+    eager: true,
+  }
+)
 const waterBody = Object.entries(waterBodyGeojson).map(([, data]) => data)
 const departement = Object.entries(departementGeojson).map(([, data]) => data)
 const StyledMapContainer = styled(MapContainer, {

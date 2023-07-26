@@ -67,8 +67,4 @@ const App = () => {
   )
 }
 
-function About() {
-  return <h2>About</h2>
-}
-
 export default App

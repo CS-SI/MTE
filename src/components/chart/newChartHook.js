@@ -283,7 +283,7 @@ export default function useChartHook() {
         })
       }
     }
-  }, [active, data, obs.depth, obs.types, dataType, YEAR, VOLUME])
+  }, [active, data, obs.depth, obs.types, dataType, YEAR, VOLUME, charType])
 
   useEffect(() => {
     if (!VOLUME || Array.from(mode.volume[obs.depth]).length === 0) return
@@ -353,6 +353,7 @@ export default function useChartHook() {
     (item, obsType, index, lakeName, indexColor) => {
       if (!item) return
       const { borderWidth } = chart.style.default
+
       let { tension, pointRadius } = AppConfig.attributes[dataType]
       let backgroundColor
       let borderColor
@@ -365,9 +366,11 @@ export default function useChartHook() {
         pointBackgroundColor =
           chart[dataType].style[obsType][indexColor].pointBackgroundColor
       }
+
       if (charType === 'LINE') {
         pointRadius = 0
       }
+
       let xAxisID
       if (YEAR) {
         xAxisID = `x${index}`
@@ -701,7 +704,6 @@ export default function useChartHook() {
 
   useEffect(() => {
     if (chartData.length === 0 || YEAR) return
-
     const arrTmp = []
     const allDates = []
     let allDatesSorted = []
@@ -781,7 +783,6 @@ export default function useChartHook() {
   const dataChart = {
     datasets: dataSets,
   }
-
   return {
     dataChart,
     options,

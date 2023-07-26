@@ -58,7 +58,7 @@ const LilFigure = styled('figure', {
   display: 'flex',
   alignItems: 'center',
   marginTop: theme.space.lg,
-  width: '25%',
+  width: '10%',
   flexDirection: 'column',
 })
 
