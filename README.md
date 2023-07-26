@@ -13,7 +13,7 @@ Il est requis d'avoir nodejs installer(https://nodejs.org/en/download/)
 9. Ajouter un message avec `git commit -m "< message >"`.
 10. Envoyer les changements sur la branch "master" `git push`.
 11. Deployer les changements avec la commande `npm run deploy-pipeline`.
-12. Le message 'Files are stored in folders'confirmera l'ajout des fichiers.
+12. Le message 'Files are stored in folders' confirmera l'ajout des fichiers.
 13. Le message 'Geojson rewritten successfully' confirmera la réécriture du Geojson
     afin afficher les réservoirs dont on a au minimum une série temporelle.
 14. Le message "Published" confirmera le deploiement.
