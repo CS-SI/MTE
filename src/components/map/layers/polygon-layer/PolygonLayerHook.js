@@ -49,15 +49,8 @@ export default function usePolygonLayerHook() {
   }, [coordId])
 
   useEffect(() => {
-    if (active.length >= 2) return
-    if (
-      active.length === 1 &&
-      dataFromStore[coordId.id]?.[dataType]?.[obsDepth]?.raw[0].length > 0 &&
-      containerHeight !== '45%'
-    ) {
-      resizeMap('45%')
-      setContainerHeight('45%')
-    }
+    if (!dataFromStore[active.at(-1)] || active.length >= 2) return
+
     if (
       (active.length === 0 && containerHeight !== '100%') ||
       (active.length === 1 &&
@@ -70,7 +63,20 @@ export default function usePolygonLayerHook() {
         coord: [],
       })
     }
-  }, [active.length, dataFromStore, dataType, obsDepth, resizeMap, coordId.id])
+
+    if (
+      active.length === 1 &&
+      dataFromStore[active.at(-1)]?.[dataType]?.[obsDepth]?.raw[0].length > 0 &&
+      containerHeight !== '45%'
+    ) {
+      setCoordId({
+        id: active.at(-1),
+        coord: information[active.at(-1)].lakeCoord,
+      })
+      resizeMap('45%')
+      setContainerHeight('45%')
+    }
+  }, [active, dataFromStore, dataType, obsDepth, resizeMap, coordId.id])
 
   useEffect(() => {
     if (containerHeight === '100%' && coordId.coord?.length > 0) {
