@@ -58,7 +58,11 @@ export default function usePolygonLayerHook() {
       resizeMap('45%')
       setContainerHeight('45%')
     }
-    if (active.length === 0 && containerHeight !== '100%') {
+    if (
+      (active.length === 0 && containerHeight !== '100%') ||
+      (active.length === 1 &&
+        dataType in dataFromStore[active.at(-1)] === false)
+    ) {
       resizeMap('100%')
       setContainerHeight('100%')
       setCoordId({

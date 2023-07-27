@@ -83,11 +83,21 @@ const ButtonOk = styled('button', {
 })
 
 export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
-  const { open, handleClose } = useMapHook({
+  const { open, handleClose, dataType } = useMapHook({
     isOpen,
     handleSetNoData,
     noDataFound,
   })
+  const oldMessage = `Pas de donnée{noDataFound.length > 1 ? 's ' : ' '}
+              {noDataFound.map(el => {
+                if (noDataFound.length > 1 && noDataFound.length <= 2) {
+                  return el + ', '
+                } else if (noDataFound.length === 1) {
+                  return el + ' '
+                }
+              })}
+              disponible.`
+
   return (
     <>
       {open && (
@@ -106,15 +116,11 @@ export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
           </Title>
           <Container>
             <Message>
-              Pas de donnée{noDataFound.length > 1 ? 's ' : ' '}
-              {noDataFound.map(el => {
-                if (noDataFound.length > 1 && noDataFound.length <= 2) {
-                  return el + ', '
-                } else if (noDataFound.length === 1) {
-                  return el + ' '
-                }
-              })}
-              disponible.
+              Conversion des superficies en{' '}
+              {dataType === 'FILLING_RATE'
+                ? 'taux de remplissage'
+                : dataType.toLowerCase()}{' '}
+              stockés insuffisamment précise
             </Message>
             <ButtonOk onClick={handleClose}>OK</ButtonOk>
           </Container>

@@ -41,10 +41,10 @@ export const PolygonLayer = ({ data }) => {
             // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
             eventHandlers={{
               click: () => {
-                if (!dataFromStore[ID_DB]?.[dataType][obsDepth]) {
+                if (!dataFromStore[ID_DB]?.[dataType]?.[obsDepth]) {
                   activeLake(ID_DB, [LAT_WW, LONG_WW])
                 }
-                if (dataFromStore[ID_DB]?.[dataType][obsDepth]) {
+                if (dataFromStore[ID_DB]?.[dataType]?.[obsDepth]) {
                   updateLake(ID_DB, [LAT_WW, LONG_WW], obsDepth)
                 }
                 if (active.includes(ID_DB)) {

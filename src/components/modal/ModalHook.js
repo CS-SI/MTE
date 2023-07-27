@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 
 export default function useMapHook({ isOpen, handleSetNoData }) {
   const [open, setOpen] = useState(isOpen)
@@ -7,8 +8,11 @@ export default function useMapHook({ isOpen, handleSetNoData }) {
     handleSetNoData()
   }, [setOpen])
 
+  const form = useSelector(state => state.form)
+  const { dataType } = form
   return {
     open,
     handleClose,
+    dataType,
   }
 }

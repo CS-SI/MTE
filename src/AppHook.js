@@ -43,6 +43,7 @@ export function useAppHook() {
       if (active.length === 0) return
       const { OPTIC, RADAR, REFERENCE } = form
       const allSeriesPath = serPath[lakeId]
+
       const opticAbbr = AppConfig.observationTypes.OPTIC.abbr
       const radarAbbr = AppConfig.observationTypes.RADAR.abbr
       const referenceAbbr = AppConfig.observationTypes.REFERENCE.abbr
@@ -92,7 +93,7 @@ export function useAppHook() {
 
       const noData = newAllData.every(el => el.length === 0)
       if (noData) {
-        dispatch(removeLake({ id: lakeId }))
+        // dispatch(removeLake({ id: lakeId }))
       }
 
       let tmp = []
@@ -182,14 +183,14 @@ export function useAppHook() {
       (lastObsDepth && obsDepth !== lastObsDepth)
     )
       return
+
     const lakeId = active.at(-1)
+    if (!lakeId) return
     const obsTypeNoData = getObsTypeNameNotFound(lakeId, form)
     if (obsTypeNoData?.length > 0) {
       setNoDataFound(obsTypeNoData.map(el => el.toLowerCase()))
       return
     }
-
-    if (!lakeId) return
     handleData(lakeId)
   }, [active, data, dataType, obsDepth, OPTIC, RADAR, REFERENCE])
 
@@ -221,15 +222,19 @@ export function useAppHook() {
   }, [DAY, PERIOD])
 
   useEffect(() => {
+    if (active.length === 0 || !data[active.at(-1)]) {
+      setIsOneLakeActive(false)
+      return
+    }
+    if (active.length === 1 && dataType in data[active.at(-1)] === false) {
+      setIsOneLakeActive(false)
+    }
     if (
       (active.length > 0 &&
         data[active.at(-1)]?.[dataType]?.[obsDepth]?.raw[0].length > 0) ||
       data[active.at(-1)]?.[dataType]?.[obsDepth]?.raw[2].length > 0
     ) {
       setIsOneLakeActive(true)
-    }
-    if (active.length === 0) {
-      setIsOneLakeActive(false)
     }
   }, [active, data, dataType])
 
