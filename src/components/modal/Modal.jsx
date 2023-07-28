@@ -116,11 +116,8 @@ export const Modal = ({ isOpen, handleSetNoData, noDataFound }) => {
           </Title>
           <Container>
             <Message>
-              Conversion des superficies en{' '}
-              {dataType === 'FILLING_RATE'
-                ? 'taux de remplissage'
-                : dataType.toLowerCase()}{' '}
-              stockés insuffisamment précise
+              Conversion des superficies en volumes stockés insuffisamment
+              précise
             </Message>
             <ButtonOk onClick={handleClose}>OK</ButtonOk>
           </Container>
