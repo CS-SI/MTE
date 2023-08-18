@@ -16,7 +16,9 @@ export const MarkerLayerCluster = ({ data }) => {
   const [layer, setLayer] = useState(null)
   useEffect(() => {
     setLayer(
-      data.features.map((_, index) => {
+      data.features.map(({ properties }, index) => {
+        const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = properties
+        if (LONG_WW === 'MISSING' || LAT_WW === 'MISSING') return
         return (
           <Marker
             icon={defaultIcon}

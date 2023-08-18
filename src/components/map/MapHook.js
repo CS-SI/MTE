@@ -24,6 +24,14 @@ export default function useMapHook({ waterBody }) {
           AREA_HA: area,
         } = properties
 
+        if (
+          LONG_WW === 'MISSING' ||
+          LAT_WW === 'MISSING' ||
+          LONG_DD === 'MISSING' ||
+          LAT_DD === 'MISSING'
+        )
+          return
+
         const info = {
           id: id.toString(),
           name,
@@ -36,6 +44,7 @@ export default function useMapHook({ waterBody }) {
           area,
         }
 
+        console.log('id', id)
         dispatch(addInformation({ id, info }))
       })
     }

@@ -5,7 +5,7 @@ import About from './pages/About'
 import { store } from '@/app/store'
 import { Provider } from 'react-redux'
 
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 ReactDOM.render(
   <Provider store={store}>

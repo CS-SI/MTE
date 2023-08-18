@@ -25,6 +25,7 @@ export const PolygonLayer = ({ data }) => {
     setLayer(
       data.features.map(feature => {
         const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
+        if (LONG_WW === 'MISSING' || LAT_WW === 'MISSING') return
         const { coordinates } = feature.geometry
         let coord = []
 
