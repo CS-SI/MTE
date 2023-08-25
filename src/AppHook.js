@@ -93,7 +93,7 @@ export function useAppHook() {
 
       const noData = newAllData.every(el => el.length === 0)
       if (noData) {
-        // dispatch(removeLake({ id: lakeId }))
+        dispatch(removeLake({ id: lakeId }))
       }
 
       let tmp = []
