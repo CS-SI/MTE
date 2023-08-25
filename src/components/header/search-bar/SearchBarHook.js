@@ -24,7 +24,19 @@ export const useSearchBarHook = lakeInfo => {
         id: information[el].id,
       })
     })
-    setOptions(optTmp)
+    const optTmpSortedByName = optTmp.sort((a, b) => {
+      const nameA = a.label.toUpperCase()
+      const nameB = b.label.toUpperCase()
+      if (nameA < nameB) {
+        return -1
+      }
+      if (nameA > nameB) {
+        return 1
+      }
+
+      return 0
+    })
+    setOptions(optTmpSortedByName)
   }, [information])
 
   useEffect(() => {
