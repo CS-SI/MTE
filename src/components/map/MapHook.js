@@ -10,7 +10,7 @@ export default function useMapHook({ waterBody }) {
     for (const data of waterBody) {
       const { features } = data
       features.forEach(({ properties }) => {
-        const {
+        let {
           ID_DB: id,
           DAM_NAME: name,
           LONG_WW,
@@ -32,6 +32,11 @@ export default function useMapHook({ waterBody }) {
         )
           return
 
+        LAT_WW = LAT_WW.replace(',', '.')
+        LONG_WW = LONG_WW.replace(',', '.')
+        LAT_DD = LAT_DD.replace(',', '.')
+        LONG_DD = LONG_DD.replace(',', '.')
+
         const info = {
           id: id.toString(),
           name,
@@ -44,7 +49,6 @@ export default function useMapHook({ waterBody }) {
           area,
         }
 
-        console.log('id', id)
         dispatch(addInformation({ id, info }))
       })
     }

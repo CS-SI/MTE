@@ -24,8 +24,11 @@ export const PolygonLayer = ({ data }) => {
   useEffect(() => {
     setLayer(
       data.features.map(feature => {
-        const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
+        let { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
         if (LONG_WW === 'MISSING' || LAT_WW === 'MISSING') return
+        LONG_WW = LONG_WW.replace(',', '.')
+        LAT_WW = LAT_WW.replace(',', '.')
+
         const { coordinates } = feature.geometry
         let coord = []
 
