@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useMapEvents } from 'react-leaflet'
 export default function useMarkerLayerClusterHook(data) {
   const [zoomLevel, setZoomLevel] = useState(null)
-
-  useEffect(() => {
-    console.log('MARKER', zoomLevel)
-  }, [zoomLevel])
 
   const coordinates = data.features.map(feature => {
     let { LONG_WW, LAT_WW } = feature.properties

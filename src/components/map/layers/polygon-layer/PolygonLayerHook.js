@@ -34,10 +34,6 @@ export default function usePolygonLayerHook() {
       setZoomLevel(mapEvents.getZoom())
     },
   })
-  useEffect(() => {
-    console.log('POLYGON', zoomLevel)
-  }, [zoomLevel])
-
   const resizeMap = useCallback(
     value => {
       const container = document.getElementsByClassName('leaflet-container')
