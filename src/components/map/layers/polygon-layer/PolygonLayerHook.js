@@ -52,7 +52,6 @@ export default function usePolygonLayerHook() {
 
   useEffect(() => {
 
-
     if (!dataFromStore[active.at(-1)] || active.length >= 2) return
 
     if (

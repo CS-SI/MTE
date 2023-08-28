@@ -222,6 +222,7 @@ export function useAppHook() {
   }, [DAY, PERIOD])
 
   useEffect(() => {
+if (active.length >= 2) return
     if (active.length === 0 || !data[active.at(-1)]) {
       setIsOneLakeActive(false)
       return
