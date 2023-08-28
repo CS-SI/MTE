@@ -5,6 +5,7 @@ import { MarkerLayerCluster } from './layers/marker-layer-cluster/MarkerLayerClu
 import { PolygonLayer } from './layers/polygon-layer/PolygonLayer'
 import { PropTypes } from 'prop-types'
 import { DepartementsPolygonLayer } from './layers/polygon-layer/DepartementsPolygon'
+import { active } from 'd3'
 
 const waterBodyGeojson = import.meta.glob(
   '/src/data/geojson/filtered/*.geojson',
@@ -26,9 +27,14 @@ const StyledMapContainer = styled(MapContainer, {
   height: '100%',
 })
 export const Map = () => {
-  const { coordinates } = useMapHook({ waterBody })
+  const { coordinates, key } = useMapHook({ waterBody })
   return (
-    <StyledMapContainer center={coordinates} zoom={6.0} scrollWheelZoom={true}>
+    <StyledMapContainer
+      center={coordinates}
+      zoom={6.0}
+      scrollWheelZoom={true}
+      key={key}
+    >
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="OSM Streets">
           <TileLayer

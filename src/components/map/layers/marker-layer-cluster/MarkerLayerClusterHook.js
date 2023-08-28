@@ -1,6 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMapEvents } from 'react-leaflet'
 export default function useMarkerLayerClusterHook(data) {
+  const [zoomLevel, setZoomLevel] = useState(null)
+
+  useEffect(() => {
+    console.log('MARKER', zoomLevel)
+  }, [zoomLevel])
+
   const coordinates = data.features.map(feature => {
     let { LONG_WW, LAT_WW } = feature.properties
     LONG_WW = LONG_WW.replace(',', '.')
@@ -13,9 +19,11 @@ export default function useMarkerLayerClusterHook(data) {
     return DAM_NAME
   })
 
-  const [zoomLevel, setZoomLevel] = useState(null)
   const mapEvents = useMapEvents({
     zoomend: () => {
+      setZoomLevel(mapEvents.getZoom())
+    },
+    init: () => {
       setZoomLevel(mapEvents.getZoom())
     },
   })

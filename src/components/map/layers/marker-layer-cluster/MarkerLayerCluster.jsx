@@ -17,7 +17,7 @@ export const MarkerLayerCluster = ({ data }) => {
   useEffect(() => {
     setLayer(
       data.features.map(({ properties }, index) => {
-        const { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = properties
+        const { LONG_WW, LAT_WW } = properties
         if (LONG_WW === 'MISSING' || LAT_WW === 'MISSING') return
         return (
           <Marker

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toggleLakeChartInfoVisibility } from '../../../stores/lakesChartOptionsSlice'
 
 export const useLakeCardHook = () => {
   const [lake, setLake] = useState({

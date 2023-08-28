@@ -30,7 +30,13 @@ export default function usePolygonLayerHook() {
     zoomend: () => {
       setZoomLevel(mapEvents.getZoom())
     },
+    init: () => {
+      setZoomLevel(mapEvents.getZoom())
+    },
   })
+  useEffect(() => {
+    console.log('POLYGON', zoomLevel)
+  }, [zoomLevel])
 
   const resizeMap = useCallback(
     value => {
@@ -49,6 +55,16 @@ export default function usePolygonLayerHook() {
   }, [coordId])
 
   useEffect(() => {
+    if (!dataFromStore[active.at(-1)] || active.length === 0) {
+      resizeMap('100%')
+      setContainerHeight('100%')
+      setCoordId({
+        id: '',
+        coord: [],
+      })
+      map.flyTo([46.4947387, 2.6028326], 6)
+    }
+
     if (!dataFromStore[active.at(-1)] || active.length >= 2) return
 
     if (
@@ -63,7 +79,6 @@ export default function usePolygonLayerHook() {
         coord: [],
       })
     }
-
     if (
       active.length === 1 &&
       dataFromStore[active.at(-1)]?.[dataType]?.[obsDepth]?.raw[0].length > 0 &&

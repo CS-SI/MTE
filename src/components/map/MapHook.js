@@ -1,10 +1,18 @@
+import { useEffect, useState } from 'react'
 import { addInformation } from '../../stores/staticLakeSlice'
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function useMapHook({ waterBody }) {
   const coordinates = [46.4947387, 2.6028326]
+  const { active } = useSelector(state => state.stateLake)
   const dispatch = useDispatch()
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    if (active.length === 0) {
+      setKey(prevKey => prevKey + 1)
+    }
+  }, [active])
 
   useEffect(() => {
     for (const data of waterBody) {
@@ -54,5 +62,5 @@ export default function useMapHook({ waterBody }) {
     }
   }, [])
 
-  return { coordinates }
+  return { coordinates, key }
 }
