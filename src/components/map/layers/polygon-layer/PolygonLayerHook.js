@@ -51,15 +51,7 @@ export default function usePolygonLayerHook() {
   }, [coordId])
 
   useEffect(() => {
-    if (!dataFromStore[active.at(-1)] || active.length === 0) {
-      resizeMap('100%')
-      setContainerHeight('100%')
-      setCoordId({
-        id: '',
-        coord: [],
-      })
-      map.flyTo([46.4947387, 2.6028326], 6)
-    }
+
 
     if (!dataFromStore[active.at(-1)] || active.length >= 2) return
 
@@ -74,6 +66,7 @@ export default function usePolygonLayerHook() {
         id: '',
         coord: [],
       })
+      map.flyTo([46.4947387, 2.6028326], 6)
     }
     if (
       active.length === 1 &&
