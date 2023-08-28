@@ -18,7 +18,6 @@ const fileNames = files.map(file => file.name)
 
 /* A function that takes a filename and splits it by the underscore character. */
 const getFileNamePart = filename => filename.split('_')[0]
-
 /**
  * It takes a list of files, creates a folder for each file, and moves the file into the folder
  */
