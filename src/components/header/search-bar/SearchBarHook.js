@@ -25,8 +25,14 @@ export const useSearchBarHook = lakeInfo => {
       })
     })
     const optTmpSortedByName = optTmp.sort((a, b) => {
-      const nameA = a.label.toUpperCase()
-      const nameB = b.label.toUpperCase()
+      const nameA = a.label
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase()
+      const nameB = b.label
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase()
       if (nameA < nameB) {
         return -1
       }
