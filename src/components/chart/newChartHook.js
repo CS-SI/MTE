@@ -461,8 +461,8 @@ export default function useChartHook() {
     Object.entries(datesOfYear).forEach((year, index) => {
       const yearScales = makesScalesForyear(
         index === 0 ? true : false,
-        getChartStartDateCurrentMonth(year[1].start),
-        getChartFirstDateNextMonth(year[1].end)
+        new Date(`${year[0]}-01-01`),
+        new Date(`${year[0]}-12-31`)
       )
       scalesYearsTmp[`x${index}`] = yearScales
     })

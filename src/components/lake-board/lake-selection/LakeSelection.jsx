@@ -173,7 +173,7 @@ export const LakeSelection = ({
     obsDepth,
     mode,
   } = useLakeSelectionHook({ id, name, coordinates, index, showLakeInfo })
-  if (!data[id]?.[dataType]?.[obsDepth]?.raw) {
+  if (!YEAR && !data[id]?.[dataType]?.[obsDepth]?.raw) {
     return null
   }
   if (active.includes(id) && !data[id]?.[dataType]?.[obsDepth]) {
