@@ -1,4 +1,4 @@
-import useChartHook from './newChartHook'
+import useChartHook from './ChartHook'
 import {
   Chart as ChartJS,
   CategoryScale,
