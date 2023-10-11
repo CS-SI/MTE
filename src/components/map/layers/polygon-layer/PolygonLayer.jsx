@@ -17,10 +17,10 @@ export const PolygonLayer = ({ data }) => {
     dataFromStore,
     dataType,
     dispatch,
+    WB_selected,
   } = usePolygonLayerHook({
     data,
   })
-
   useEffect(() => {
     setLayer(
       data.features.map(feature => {
@@ -37,11 +37,12 @@ export const PolygonLayer = ({ data }) => {
           polygon[1],
           polygon[0],
         ])
+
         return (
           <Polygon
             key={uuid()}
             positions={reversedMultiPolygons}
-            color={ID_DB.toString() === id ? '#CDF0EA' : 'blue'}
+            color={WB_selected.includes(ID_DB.toString()) ? '#CDF0EA' : 'blue'}
             // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
             eventHandlers={{
               click: () => {

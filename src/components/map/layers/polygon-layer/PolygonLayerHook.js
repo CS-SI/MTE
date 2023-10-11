@@ -51,7 +51,6 @@ export default function usePolygonLayerHook() {
   }, [coordId])
 
   useEffect(() => {
-
     if (!dataFromStore[active.at(-1)] || active.length >= 2) return
 
     if (
@@ -212,5 +211,6 @@ export default function usePolygonLayerHook() {
     dataFromStore,
     dataType,
     dispatch,
+    WB_selected: active,
   }
 }
