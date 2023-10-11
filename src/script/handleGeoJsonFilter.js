@@ -3,7 +3,7 @@ import Fs from 'fs/promises'
 
 const BASEFOLDER = './public/series'
 const GEOJSONPATH =
-  './src/data/geojson/392-retenues-pourLoiZSV_V2_sans_tampon.geojson'
+  './src/data/geojson/392-retenues-pourLoiZSV_V4_sans_tampon.geojson'
 
 const allFiles = fs.readdirSync(BASEFOLDER)
 const Ids = allFiles.map(id => +id)
