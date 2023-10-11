@@ -26,10 +26,6 @@ export default function useChartHook() {
   const [datesOfYear, setDatesOfYear] = useState({})
   const [scales, setScales] = useState()
   const [options, setOptions] = useState()
-  const [obs, setObs] = useState({
-    types: [],
-    depth: '',
-  })
 
   const [formOptions, setFormOptions] = useState({
     dataType: '',
@@ -61,6 +57,10 @@ export default function useChartHook() {
     VOLUME,
     charType,
   } = form
+  const [obs, setObs] = useState({
+    types: [],
+    depth: DAY || PERIOD ? DurationTypes.DAY : DurationTypes.PERIOD,
+  })
 
   const { label, unit } = AppConfig.attributes[dataType]
   const { active, indexToRemoveFromChartData } = useSelector(
