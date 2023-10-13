@@ -5,17 +5,16 @@ import { MarkerLayerCluster } from './layers/marker-layer-cluster/MarkerLayerClu
 import { PolygonLayer } from './layers/polygon-layer/PolygonLayer'
 import { PropTypes } from 'prop-types'
 import { DepartementsPolygonLayer } from './layers/polygon-layer/DepartementsPolygon'
-import { active } from 'd3'
 
 const waterBodyGeojson = import.meta.glob(
-  '/src/data/geojson/filtered/*.geojson',
+  '/src/data/geojson/filtered/data.min.geojson',
   {
     eager: true,
   }
 )
 
 const departementGeojson = import.meta.glob(
-  '/src/data/geojson/departements/*.geojson',
+  '/src/data/geojson/departements/departements.min.geojson',
   {
     eager: true,
   }
