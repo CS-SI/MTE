@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import geojson from 'rollup-plugin-geojson'
-
+import { visualizer } from 'rollup-plugin-visualizer'
 const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +11,7 @@ export default defineConfig({
     geojson({
       compact: true,
     }),
+    visualizer(),
   ],
   resolve: {
     alias: {

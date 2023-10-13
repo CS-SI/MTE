@@ -12,7 +12,8 @@
     "build-deploy": "npm run build && npm run deploy",
     "parse": "node ./src/script/handleGeoJsonFilter.js",
     "file-to-folder": "node ./src/script/handleSeriesFiles.js",
-    "deploy-pipeline": "npm run file-to-folder && npm run parse && npm run build-deploy"
+    "deploy-pipeline": "npm run file-to-folder && npm run parse && npm run minify_geojson && npm run build-deploy",
+    "minify_geojson": "sh ./src/script/minify_geojson.sh"
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.0",
@@ -36,6 +37,7 @@
     "react": "^17.0.2",
     "react-chartjs-2": "^4.1.0",
     "react-dom": "^17.0.2",
+    "react-error-boundary": "^4.0.11",
     "react-leaflet": ">=3.1.0 <3.2.0",
     "react-leaflet-markercluster": "3.0.0-rc1",
     "react-loader-spinner": "^5.3.4",
@@ -43,7 +45,8 @@
     "react-router-dom": "^6.14.2",
     "react-select": "^5.7.3",
     "react-tooltip": "^4.2.21",
-    "rollup-plugin-geojson": "^0.1.0"
+    "rollup-plugin-geojson": "^0.1.0",
+    "rollup-plugin-visualizer": "^5.9.2"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.6",
@@ -56,6 +59,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "gh-pages": "^4.0.0",
     "prettier": "2.7.1",
-    "vite": "^3.0.9"
+    "vite": "^3.0.9",
+    "vite-plugin-chunk-split": "^0.4.7"
   }
 }
