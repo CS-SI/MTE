@@ -18,6 +18,10 @@ import { addYearsChartOptions } from './stores/yearsChartOptionsSlice'
 import DATA_TYPES from './config/DataTypes'
 import { getYearStyle } from './stores/chartSlice'
 
+import { resetLakechartOptions } from './stores/lakesChartOptionsSlice'
+import { resetYearschartOptions } from './stores/yearsChartOptionsSlice'
+import { clearActiveLakes } from './stores/stateLakeSlice'
+
 export function useAppHook() {
   const yearStyle = useSelector(getYearStyle)
   const styleLength = Object.entries(yearStyle).length
@@ -317,7 +321,12 @@ export function useAppHook() {
       }
     }
   }, [data?.[active.at(-1)]?.[dataType]?.[obsDepth]?.year, YEAR])
-
+  const resetErrorBoundary = () => {
+    dispatch(clearActiveLakes())
+    dispatch(resetLakechartOptions())
+    dispatch(resetYearschartOptions())
+    dispatch(resetModeVolume())
+  }
   return {
     isOneLakeActive,
     theme,
@@ -327,5 +336,6 @@ export function useAppHook() {
     noData,
     handleSetNoData,
     noDataFound,
+    resetErrorBoundary,
   }
 }

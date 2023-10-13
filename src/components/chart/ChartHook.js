@@ -783,6 +783,7 @@ export default function useChartHook() {
   const dataChart = {
     datasets: dataSets,
   }
+
   return {
     dataChart,
     options,

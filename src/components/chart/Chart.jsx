@@ -15,7 +15,6 @@ import zoomPlugin from 'chartjs-plugin-zoom'
 import { styled } from '@stitches/react'
 import 'chartjs-adapter-date-fns'
 import { useEffect } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
 ChartJS.register(
   CategoryScale,
   LinearScale,

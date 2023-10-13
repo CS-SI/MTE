@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { PropTypes } from 'prop-types'
 import { toggleLakeChartSelection } from '../../../../stores/lakesChartOptionsSlice'
 import { findLargestArray } from '../../../../utils/array'
+
 export const PolygonLayer = ({ data }) => {
   const [layer, setLayer] = useState(null)
   const {
@@ -21,13 +22,11 @@ export const PolygonLayer = ({ data }) => {
   } = usePolygonLayerHook({
     data,
   })
+
   useEffect(() => {
     setLayer(
       data.features.map(feature => {
         let { ID_DB, DAM_NAME, LONG_WW, LAT_WW } = feature.properties
-        if (LONG_WW === 'MISSING' || LAT_WW === 'MISSING') return
-        LONG_WW = LONG_WW.replace(',', '.')
-        LAT_WW = LAT_WW.replace(',', '.')
 
         const { coordinates } = feature.geometry
         let coord = []
@@ -65,7 +64,7 @@ export const PolygonLayer = ({ data }) => {
         )
       })
     )
-  }, [id, active])
+  }, [active])
 
   return <LayerGroup>{zoomLevel > 8 ? layer : null}</LayerGroup>
 }

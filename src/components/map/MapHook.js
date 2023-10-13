@@ -32,18 +32,18 @@ export default function useMapHook({ waterBody }) {
           AREA_HA: area,
         } = properties
 
-        if (
-          LONG_WW === 'MISSING' ||
-          LAT_WW === 'MISSING' ||
-          LONG_DD === 'MISSING' ||
-          LAT_DD === 'MISSING'
-        )
-          return
-
-        LAT_WW = LAT_WW.replace(',', '.')
-        LONG_WW = LONG_WW.replace(',', '.')
-        LAT_DD = LAT_DD.replace(',', '.')
-        LONG_DD = LONG_DD.replace(',', '.')
+        // if (
+        //   LONG_WW === 'MISSING' ||
+        //   LAT_WW === 'MISSING' ||
+        //   LONG_DD === 'MISSING' ||
+        //   LAT_DD === 'MISSING'
+        // )
+        //   return
+        //
+        // LAT_WW = LAT_WW.replace(',', '.')
+        // LONG_WW = LONG_WW.replace(',', '.')
+        // LAT_DD = LAT_DD.replace(',', '.')
+        // LONG_DD = LONG_DD.replace(',', '.')
 
         const info = {
           id: id.toString(),

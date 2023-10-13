@@ -10,6 +10,7 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { Header } from './components/header/Header'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const SAppContainer = styled('div', {
   display: 'flex',
@@ -33,6 +34,59 @@ const themeMap = {
   light: null,
   dark: darkTheme,
 }
+const ErrorDiv = styled('div', {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -20%)',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  height: 'auto',
+  width: 'max-content',
+  padding: '1rem',
+  borderRadius: '5px',
+  backgroundColor: 'white',
+  color: 'black',
+  border: '1px solid red',
+  fontFamily: 'sans-serif',
+  gap: '1rem',
+})
+const Button = styled('button', {
+  'borderStyle': 'none',
+  'cursor': 'pointer',
+  'height': '60%',
+  'padding': '0',
+  'display': 'grid',
+  'placeItems': 'center',
+  'width': 'max-content',
+  'backgroundColor': 'lightgray',
+  'borderRadius': '5px',
+  'border': '1px solid red',
+  'padding': '0.5rem',
+
+  '&:hover': { backgroundColor: 'gray' },
+})
+const ButtonContainer = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+})
+
+const ErrorFallBack = ({ error, resetErrorBoundary }) => {
+  return (
+    <ErrorDiv role="alert">
+      <p>Une erreur s'est produite :</p>
+      <p>
+        Erreur: <br />
+        <span>{error.message}</span>
+      </p>
+
+      <ButtonContainer>
+        <Button onClick={resetErrorBoundary}>Reinitialiser</Button>
+      </ButtonContainer>
+    </ErrorDiv>
+  )
+}
 const App = () => {
   const {
     toggleTheme,
@@ -44,6 +98,7 @@ const App = () => {
     canvas,
     noData,
     noDataFound,
+    resetErrorBoundary,
   } = useAppHook()
   return (
     <Container className={themeMap[theme]}>
@@ -60,7 +115,13 @@ const App = () => {
             />
           )}
           <Map isOneLakeActive={isOneLakeActive} />
-          {isOneLakeActive && <Chart handleCanvas={handleCanvas} />}
+          <ErrorBoundary
+            FallbackComponent={ErrorFallBack}
+            onReset={resetErrorBoundary}
+          >
+            {' '}
+            {isOneLakeActive && <Chart handleCanvas={handleCanvas} />}
+          </ErrorBoundary>
         </SMapChartContainer>
       </SAppContainer>
     </Container>
